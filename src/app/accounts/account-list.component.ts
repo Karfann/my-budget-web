@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Account } from './../models/account';
 
 @Component({
-  selector: 'app-accounts',
-  templateUrl: './accounts.component.html',
-  styleUrls: ['./accounts.component.css']
+  selector: 'app-account-list',
+  templateUrl: './account-list.component.html',
+  styleUrls: ['./account-list.component.css']
 })
-export class AccountsComponent implements OnInit {
+export class AccountListComponent implements OnInit {
 
   accounts: Account[] = [
         new Account(1, 'Bco Abc', 0.00, true),

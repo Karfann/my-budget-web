@@ -1,11 +1,7 @@
+<a routerLink="/accounts/new" routerLinkActive="active">New Account</a>
 <ul>
   <li *ngFor="let account of accounts">
-    <p>Id: {{ account.id}} / name: {{ account.name }} / 
+    Id: {{ account.id}} / name: {{ account.name }} / 
       Initial Value: {{ account.initialValue | currency}} / Active: {{ account.isActive}}
-    </p>
   </li>
 </ul>
-
-<p>
-  {{ accounts | json }}
-</p>
