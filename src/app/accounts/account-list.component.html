@@ -2,19 +2,20 @@
   <h1 class="h2">Accounts</h1>
   <div class="btn-toolbar mb-2 mb-md-0">
     <div class="btn-group mr-2">
-      <button class="btn btn-sm btn-outline-secondary">Share</button>
-      <button class="btn btn-sm btn-outline-secondary">Export</button>
+      <a routerLink="/accounts/new" routerLinkActive="active" class="btn btn-sm btn-outline-secondary">New Account</a>
     </div>
-    <button class="btn btn-sm btn-outline-secondary dropdown-toggle">
-      <span data-feather="calendar"></span>
-      This week
-    </button>
   </div>
 </div>
 
-<a routerLink="/accounts/new" routerLinkActive="active" class="btn btn-primary btn-sm">New Account</a>
-<ul>
-  <li *ngFor="let account of accounts">
-    Id: {{ account.id}} / name: {{ account.name }} / Balance: {{ account.balance | currency}} / Active: {{ account.isActive}}
-  </li>
-</ul>
+<div class="card-group">
+  <div class="card" *ngFor="let account of accounts">
+    <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
+    <div class="card-body">
+      <h5 class="card-title">{{account.name}}</h5>
+      <!-- <p class="card-text">Balance: {{ account.balance | currency}}</p> -->
+    </div>
+    <div class="card-footer">
+      <small class="text-muted">Balance: {{ account.balance | currency}}</small>
+    </div>
+  </div>
+</div>
