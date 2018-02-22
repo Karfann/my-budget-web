@@ -15,6 +15,6 @@
 <a routerLink="/accounts/new" routerLinkActive="active" class="btn btn-primary btn-sm">New Account</a>
 <ul>
   <li *ngFor="let account of accounts">
-    Id: {{ account.id}} / name: {{ account.name }} / Initial Value: {{ account.initialValue | currency}} / Active: {{ account.isActive}}
+    Id: {{ account.id}} / name: {{ account.name }} / Balance: {{ account.balance | currency}} / Active: {{ account.isActive}}
   </li>
 </ul>

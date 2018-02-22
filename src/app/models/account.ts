@@ -2,7 +2,7 @@ export class Account {
     constructor(
             private id:number,    
             private name:string, 
-            private initialValue: number,
+            private balance: number,
             private isActive: boolean
          ){}
 }

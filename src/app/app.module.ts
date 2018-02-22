@@ -10,6 +10,7 @@ import { AccountListComponent } from './accounts/account-list.component';
 import { AccountNewComponent } from './accounts/account-new.component';
 import { HeaderComponent } from './shared/header/header.component';
 import { PageNotFoundComponent } from './shared/page-not-found/page-not-found.component';
+import { AccountShowComponent } from './accounts/account-show.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { PageNotFoundComponent } from './shared/page-not-found/page-not-found.co
     AccountListComponent,
     AccountNewComponent,
     HeaderComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    AccountShowComponent
   ],
   imports: [
     BrowserModule,
