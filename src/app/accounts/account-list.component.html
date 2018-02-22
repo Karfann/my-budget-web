@@ -1,4 +1,7 @@
-<a routerLink="/accounts/new" routerLinkActive="active">New Account</a>
+<a 
+  routerLink="/accounts/new" 
+  routerLinkActive="active"
+  class="btn btn-primary">New Account</a>
 <ul>
   <li *ngFor="let account of accounts">
     Id: {{ account.id}} / name: {{ account.name }} / 
