@@ -11,6 +11,7 @@ import { AccountNewComponent } from './accounts/account-new.component';
 import { HeaderComponent } from './shared/header/header.component';
 import { PageNotFoundComponent } from './shared/page-not-found/page-not-found.component';
 import { AccountShowComponent } from './accounts/account-show.component';
+import { AccountService } from './accounts/account.service';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,7 @@ import { AccountShowComponent } from './accounts/account-show.component';
     NgbModule.forRoot(),
     AppRoutingModule
   ],
-  providers: [],
+  providers: [AccountService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
