@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -24,6 +25,7 @@ import { AccountService } from './accounts/account.service';
   ],
   imports: [
     BrowserModule,
+    ReactiveFormsModule,
     NgbModule.forRoot(),
     AppRoutingModule
   ],
