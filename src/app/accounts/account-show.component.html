@@ -5,9 +5,12 @@
   <div class="card-body">
     <h5 class="card-title">{{ account.name}} </h5>
     <p class="card-text">
-        Balance: {{ account.balance | currency}} <br> 
-        Active: {{ account.isActive}}
+      Balance: {{ account.balance | currency}}
+      <br> Active: {{ account.isActive}}
     </p>
-    <a routerLink="/account/:id/edit" class="btn btn-primary">Edit</a>
+    <div class="btn-group" role="group" aria-label="Basic example">
+      <a routerLink="/account/:id/edit" class="btn btn-dark">Edit</a>
+      <a (click)="goBack()" class="btn btn-light">Back</a>
+    </div>
   </div>
 </div>

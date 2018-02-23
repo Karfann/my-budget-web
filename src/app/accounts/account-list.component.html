@@ -11,7 +11,8 @@
   <div class="card" *ngFor="let account of accounts">
     <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
     <div class="card-body">
-      <h5 class="card-title">{{account.name}}</h5>
+      <h5 class="card-title">
+        <a routerLink="/account/{{account.id}}">{{account.name}}</a></h5>
       <!-- <p class="card-text">Balance: {{ account.balance | currency}}</p> -->
     </div>
     <div class="card-footer">
