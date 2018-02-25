@@ -8,16 +8,20 @@ import { ACCOUNTS } from "./mock-accounts";
 
 @Injectable()
 export class AccountService {
-  private accounts: Account[];
 
   constructor() {}
 
   getAccounts(): Observable<Account[]> {
     return of(ACCOUNTS);
   }
+
   getAccount(id: number): Observable<Account> {
     let account = ACCOUNTS.find(acc => acc.id === id);
     return of(account);
+  }
+
+  addAccount(account: Account): void {
+    ACCOUNTS.push(account);
   }
 }
 
