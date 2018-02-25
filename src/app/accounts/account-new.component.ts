@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Location } from "@angular/common";
+import { Router } from '@angular/router';
 
 import { Account } from "./../models/account";
 import { AccountService } from "./account.service";
@@ -16,7 +17,8 @@ export class AccountNewComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private location: Location,
-    private accountService: AccountService
+    private accountService: AccountService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -27,6 +29,7 @@ export class AccountNewComponent implements OnInit {
     let account = this.prepareSave();
     this.accountService.addAccount(account);
     console.log(account);
+    this.router.navigate(['/accounts']);
   }
 
   reset(): void {

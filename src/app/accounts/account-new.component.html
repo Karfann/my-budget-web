@@ -7,17 +7,12 @@
         <label for="name">Name:</label>
         <input class="form-control" formControlName="name">
 
-        <div *ngIf="form.controls.name.invalid && (form.controls.name.dirty || form.controls.name.touched)" class="alert alert-danger">
-
-          
-          <!-- <div *ngIf="form.controls.name.errors.required">
-            Name is required.
-          </div>
-          <div *ngIf="form.controls.name.errors.minlength">
-            Name must be at least 4 characters long.
-          </div> -->
-          
+        <div *ngIf="form.controls.name.invalid && (form.controls.name.dirty || form.controls.name.touched)" class="alert alert-danger"
+          role="alert">
+          <div [hidden]="!form.controls['name'].errors.required">Name is required.</div>
+          <div [hidden]="!form.controls['name'].errors.minlength">Name must be at least 4 characters long.</div>
         </div>
+
       </div>
       <div class="form-row">
         <div class="form-group col-8">
@@ -45,17 +40,3 @@
     </form>
   </div>
 </div>
-
-<hr>
-<p>Form value: {{ form.value | json }}</p>
-<p>Form status: {{ form.status | json }}</p>
-<!-- <p>Form Control: {{ form.controls['name'] | json }}</p> -->
-<!-- 
-<ul>
-    <li *ngFor="let error of form.controls['name'].errors">
-      {{ error  }}
-    </li>
-  </ul> -->
-
-
-  <!-- TODO: Added validation to form -->
