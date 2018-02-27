@@ -45,6 +45,12 @@ export class AccountEditComponent implements OnInit {
     this.location.back();
   }
 
+  delete(): void {
+    if (confirm(`Are you sure to delete ${this.account.name}`)) {
+      this.accountService.deleteAccount(this.account);
+    }
+  }
+
   private createForm(): void {
     this.form = this.fb.group({
       name: ["", [Validators.required, Validators.minLength(3)]],

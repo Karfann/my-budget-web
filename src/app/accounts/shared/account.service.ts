@@ -26,6 +26,12 @@ export class AccountService {
 
   updateAccount(account: Account): void {
     //TODO: update account
+    console.log("Updated account: " + account.name);
+  }
+
+  deleteAccount(account: Account): void {
+    //TODO: delete account
+    console.log("Deleted account: " + account.name);
   }
 }
 
