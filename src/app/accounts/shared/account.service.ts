@@ -3,7 +3,7 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs/Observable";
 import { of } from "rxjs/observable/of";
 
-import { Account } from "./../models/account";
+import { Account } from './../model/account';
 import { ACCOUNTS } from "./mock-accounts";
 
 @Injectable()
@@ -22,6 +22,10 @@ export class AccountService {
 
   addAccount(account: Account): void {
     ACCOUNTS.push(account);
+  }
+
+  updateAccount(account: Account): void {
+    //TODO: update account
   }
 }
 
