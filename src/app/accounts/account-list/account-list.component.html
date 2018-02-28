@@ -1,16 +1,7 @@
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-  <h1 class="h2">Accounts</h1>
-  <div class="btn-toolbar mb-2 mb-md-0">
-    <div class="btn-group mr-2">
-      <a routerLink="/accounts/new" routerLinkActive="active" class="btn btn-sm btn-outline-secondary">New Account</a>
-    </div>
-  </div>
-</div>
-
 <div class="card" *ngFor="let account of accounts">
   <div class="card-body">
     <h5 class="card-title">{{account.name}}</h5>
     <p class="card-text">Balance: {{ account.balance | currency}}</p>
-    <a routerLink="/account/{{account.id}}" class="card-link">More</a>
+    <a [routerLink]="['detail',account.id]" class="card-link">More</a>
   </div>
 </div>

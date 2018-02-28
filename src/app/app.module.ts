@@ -16,6 +16,7 @@ import { AccountEditComponent } from './accounts/account-edit/account-edit.compo
 
 import { HeaderComponent } from './shared/header/header.component';
 import { PageNotFoundComponent } from './shared/page-not-found/page-not-found.component';
+import { AccountMainComponent } from './accounts/account-main/account-main.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { PageNotFoundComponent } from './shared/page-not-found/page-not-found.co
     AccountListComponent,
     AccountNewComponent,
     AccountEditComponent,
+    AccountMainComponent,
   ],
   imports: [
     BrowserModule,
