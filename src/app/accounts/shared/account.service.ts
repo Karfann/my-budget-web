@@ -3,8 +3,8 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs/Observable";
 import { of } from "rxjs/observable/of";
 
-import { Account } from './../model/account';
-import { ACCOUNTS } from "./mock-accounts";
+import { Account } from './account';
+import { ACCOUNTS } from './../../shared/mock-accounts';
 
 @Injectable()
 export class AccountService {

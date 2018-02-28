@@ -3,8 +3,8 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { Location } from "@angular/common";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 
-import { Account } from "./../model/account";
-import { AccountService } from "./../shared/account.service";
+import { AccountService } from './../shared/account.service';
+import { Account } from './../shared/account';
 
 @Component({
   selector: "app-account-edit",
@@ -48,6 +48,7 @@ export class AccountEditComponent implements OnInit {
   delete(): void {
     if (confirm(`Are you sure to delete ${this.account.name}`)) {
       this.accountService.deleteAccount(this.account);
+      this.router.navigate(["/accounts"]);
     }
   }
 

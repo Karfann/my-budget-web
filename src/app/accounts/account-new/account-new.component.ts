@@ -3,8 +3,8 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Location } from "@angular/common";
 import { Router } from '@angular/router';
 
-import { Account } from './../model/account';
-import { AccountService } from "./../shared/account.service";
+import { AccountService } from './../shared/account.service';
+import { Account } from './../shared/account';
 
 @Component({
   selector: "app-account-new",

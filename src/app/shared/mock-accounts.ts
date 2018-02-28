@@ -1,4 +1,4 @@
-import { Account } from './../model/account';
+import { Account } from './../accounts/shared/account';
 
 export const ACCOUNTS: Account[] = [
     new Account(1, "Bank of Ireland", 60.0, true),
