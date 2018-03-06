@@ -3,8 +3,8 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { Location } from "@angular/common";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 
-import { AccountService } from './../shared/account.service';
-import { Account } from './../shared/account';
+import { AccountService } from "./../shared/account.service";
+import { Account } from "./../shared/account";
 
 @Component({
   selector: "app-account-edit",
@@ -14,6 +14,7 @@ import { Account } from './../shared/account';
 export class AccountEditComponent implements OnInit {
   account: Account;
   form: FormGroup;
+  isFormReady: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -26,12 +27,19 @@ export class AccountEditComponent implements OnInit {
   ngOnInit() {
     this.getAccount();
     this.createForm();
-    this.setFormValue();
+
+    //this.setFormValue();
   }
 
   getAccount(): void {
     const id = +this.route.snapshot.paramMap.get("id");
-    this.accountService.getAccount(id).subscribe(acc => (this.account = acc));
+    this.accountService
+      .getAccount(id)
+      .subscribe(
+        acc => (
+          (this.account = acc), this.setFormValue()
+        )
+      );
   }
 
   onSubmit(): void {
@@ -64,6 +72,7 @@ export class AccountEditComponent implements OnInit {
       name: this.account.name,
       isActive: this.account.isActive
     });
+    this.isFormReady = true;
   }
 
   private prepareSave(): void {

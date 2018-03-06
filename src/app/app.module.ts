@@ -1,5 +1,6 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
+import { HttpClientModule } from "@angular/common/http";
 
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 
@@ -22,9 +23,9 @@ import { AccountsModule } from "./accounts/accounts.module";
   imports: [
     BrowserModule,
     NgbModule.forRoot(),
+    HttpClientModule,
     AccountsModule,
-    AppRoutingModule,
-    
+    AppRoutingModule
   ],
   providers: [AccountService],
   bootstrap: [AppComponent]
