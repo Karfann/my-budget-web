@@ -22,7 +22,7 @@ export class AccountService {
     return this.http
       .get<Account[]>(this.accountUrl)
       .pipe(
-        tap(list => console.log("fetched accounts")),
+        tap(list => this.log("fetched accounts")),
         catchError(this.handleError("getAccounts", []))
       );
   }
@@ -31,22 +31,17 @@ export class AccountService {
     const url = `${this.accountUrl}/${id}`;
     return this.http.get<Account>(url)
       .pipe(
-        tap(_ => console.log(`fetched account id=${id}`)),
+        tap(_ => this.log(`fetched account id=${id}`)),
         catchError(this.handleError<Account>(`getAccount id=${id}`))
       )
   }
 
-  /** GET hero by id. Will 404 if id not found */
-  // getHero(id: number): Observable<Hero> {
-  //   const url = `${this.heroesUrl}/${id}`;
-  //   return this.http.get<Hero>(url).pipe(
-  //     tap(_ => this.log(`fetched hero id=${id}`)),
-  //     catchError(this.handleError<Hero>(`getHero id=${id}`))
-  //   );
-  // }
-
-  addAccount(account: Account): void {
-    ACCOUNTS.push(account);
+  addAccount(account: Account): Observable<Account> {
+    return this.http.post<Account>(this.accountUrl, account, httpOptions)
+      .pipe(
+        tap((account: Account) => this.log(`added account w/ id=${account.id}`)),
+        catchError(this.handleError<Account>('addAccount'))
+      )
   }
 
   updateAccount(account: Account): void {
@@ -54,10 +49,29 @@ export class AccountService {
     console.log("Updated account: " + account.name);
   }
 
+
+  // /** PUT: update the hero on the server */
+  // updateHero (hero: Hero): Observable<any> {
+  //   return this.http.put(this.heroesUrl, hero, httpOptions).pipe(
+  //     tap(_ => this.log(`updated hero id=${hero.id}`)),
+  //     catchError(this.handleError<any>('updateHero'))
+  //   );
+  // }
   deleteAccount(account: Account): void {
     //TODO: delete account
     console.log("Deleted account: " + account.name);
   }
+
+  // /** DELETE: delete the hero from the server */
+  // deleteHero (hero: Hero | number): Observable<Hero> {
+  //   const id = typeof hero === 'number' ? hero : hero.id;
+  //   const url = `${this.heroesUrl}/${id}`;
+ 
+  //   return this.http.delete<Hero>(url, httpOptions).pipe(
+  //     tap(_ => this.log(`deleted hero id=${id}`)),
+  //     catchError(this.handleError<Hero>('deleteHero'))
+  //   );
+  // }
 
   /**
    * Handle Http operation that failed.
@@ -76,5 +90,9 @@ export class AccountService {
       // Let the app keep running by returning an empty result.
       return of(result as T);
     };
+  }
+
+  private log(msg: string):void {
+    console.log(msg);
   }
 }

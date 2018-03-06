@@ -19,7 +19,7 @@ export class AccountNewComponent implements OnInit {
     private location: Location,
     private accountService: AccountService,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.createForm();
@@ -27,8 +27,11 @@ export class AccountNewComponent implements OnInit {
 
   onSubmit(): void {
     let account = this.prepareSave();
-    this.accountService.addAccount(account);
-    console.log(account);
+    this.accountService.addAccount(account)
+      .subscribe(account => {
+        console.log(account);    
+      });
+    
     this.router.navigate(['/accounts']);
   }
 
