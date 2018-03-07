@@ -16,7 +16,7 @@ const httpOptions = {
 export class AccountService {
   private accountUrl: string = "http://localhost:3000/accounts";
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getAccounts(): Observable<Account[]> {
     return this.http
@@ -44,33 +44,24 @@ export class AccountService {
       )
   }
 
-  updateAccount(account: Account): void {
-    //TODO: update account
-    console.log("Updated account: " + account.name);
+  updateAccount(account: Account): Observable<any> {
+    const url = `${this.accountUrl}/${account.id}`;
+    return this.http.put(url, account, httpOptions)
+      .pipe(
+        tap(_ => this.log(`updated account id=${account.id}`)),
+        catchError(this.handleError<any>('updateAccount'))
+      )
   }
 
+  // deleteAccount(account: Account): Observable<Account> {
 
-  // /** PUT: update the hero on the server */
-  // updateHero (hero: Hero): Observable<any> {
-  //   return this.http.put(this.heroesUrl, hero, httpOptions).pipe(
-  //     tap(_ => this.log(`updated hero id=${hero.id}`)),
-  //     catchError(this.handleError<any>('updateHero'))
-  //   );
-  // }
-  deleteAccount(account: Account): void {
-    //TODO: delete account
-    console.log("Deleted account: " + account.name);
-  }
+  //   const url = `${this.accountUrl}/${account.id}`;
 
-  // /** DELETE: delete the hero from the server */
-  // deleteHero (hero: Hero | number): Observable<Hero> {
-  //   const id = typeof hero === 'number' ? hero : hero.id;
-  //   const url = `${this.heroesUrl}/${id}`;
- 
-  //   return this.http.delete<Hero>(url, httpOptions).pipe(
-  //     tap(_ => this.log(`deleted hero id=${id}`)),
-  //     catchError(this.handleError<Hero>('deleteHero'))
-  //   );
+  //   return this.http.delete<Account>(url, httpOptions)
+  //     .pipe(
+  //       tap(_ => this.log(`deleted hero id=${account.id}`)),
+  //       catchError(this.handleError<Account>('deleteAccount'))
+  //     );
   // }
 
   /**
@@ -92,7 +83,7 @@ export class AccountService {
     };
   }
 
-  private log(msg: string):void {
+  private log(msg: string): void {
     console.log(msg);
   }
 }

@@ -22,13 +22,11 @@ export class AccountEditComponent implements OnInit {
     private accountService: AccountService,
     private fb: FormBuilder,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.getAccount();
     this.createForm();
-
-    //this.setFormValue();
   }
 
   getAccount(): void {
@@ -36,28 +34,23 @@ export class AccountEditComponent implements OnInit {
     this.accountService
       .getAccount(id)
       .subscribe(
-        acc => (
-          (this.account = acc), this.setFormValue()
-        )
-      );
+        acc => {
+          this.account = acc,
+            this.setFormValue()
+        })
   }
 
   onSubmit(): void {
     this.prepareSave();
-    this.accountService.updateAccount(this.account);
-    console.log(this.account);
-    this.router.navigate(["/accounts"]);
+    this.accountService.updateAccount(this.account)
+      .subscribe(account => {
+        console.log(account);
+        this.router.navigate(['/accounts']);
+      });;
   }
 
   goBack(): void {
     this.location.back();
-  }
-
-  delete(): void {
-    if (confirm(`Are you sure to delete ${this.account.name}`)) {
-      this.accountService.deleteAccount(this.account);
-      this.router.navigate(["/accounts"]);
-    }
   }
 
   private createForm(): void {

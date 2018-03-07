@@ -17,7 +17,6 @@
         </select>
       </div>
       <button type="submit" [disabled]="form.invalid" class="btn btn-primary mb-2">Save</button>
-      <button type="button" (click)="delete()" class="btn btn-danger mb-2">Delete</button>
       <button type="button" (click)="goBack()" class="btn btn-light mb-2">Back</button>
     </form>
       <div *ngIf="form.controls.name.invalid && (form.controls.name.dirty || form.controls.name.touched)" 
@@ -25,6 +24,9 @@
         role="alert">
         <div [hidden]="!form.controls['name'].errors.required">Name is required.</div>
         <div [hidden]="!form.controls['name'].errors.minlength">Name must be at least 4 characters long.</div>
+      </div>
+      <div class="alert alert-light text-right">
+        Last update: {{ account.updated_at | date:"MM/dd/yy" }}
       </div>
   </div>
 </div>
