@@ -30,9 +30,8 @@ export class AccountNewComponent implements OnInit {
     this.accountService.addAccount(account)
       .subscribe(account => {
         console.log(account);    
+        this.router.navigate(['/accounts']);
       });
-    
-    this.router.navigate(['/accounts']);
   }
 
   reset(): void {
