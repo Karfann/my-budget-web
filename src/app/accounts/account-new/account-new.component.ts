@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 
 import { AccountService } from './../shared/account.service';
 import { Account } from './../shared/account';
+import { AlertService } from '../../shared/alert/alert.service';
 
 @Component({
   selector: 'app-account-new',
@@ -18,7 +19,8 @@ export class AccountNewComponent implements OnInit {
     private fb: FormBuilder,
     private location: Location,
     private accountService: AccountService,
-    private router: Router
+    private router: Router,
+    private alertService: AlertService
   ) { }
 
   ngOnInit() {
@@ -30,6 +32,7 @@ export class AccountNewComponent implements OnInit {
     this.accountService.addAccount(account)
       .subscribe(acc => {
         console.log(acc);
+        this.alertService.success(`Your Account: ${acc.name} has been created with success`);
         this.router.navigate(['/accounts']);
       });
   }

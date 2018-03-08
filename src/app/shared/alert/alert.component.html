@@ -1,0 +1,5 @@
+<div *ngFor="let alert of alerts">
+  <app-alert class="{{ cssClass(alert) }} alert-dismissable" (close)="removeAlert(alert)">
+    {{ alert.message }}
+  </app-alert>
+</div>

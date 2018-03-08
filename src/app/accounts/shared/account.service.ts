@@ -6,7 +6,6 @@ import { of } from 'rxjs/observable/of';
 import { catchError, map, tap } from 'rxjs/operators';
 
 import { Account } from './account';
-import { ACCOUNTS } from './../../shared/mock-accounts';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { AccountService } from './../shared/account.service';
 import { Account } from './../shared/account';
+import { AlertService } from '../../shared/alert/alert.service';
 
 @Component({
   selector: 'app-account-list',
@@ -12,7 +13,10 @@ export class AccountListComponent implements OnInit {
 
   accounts: Account[];
 
-  constructor(private accountService: AccountService) { }
+  constructor(
+    private accountService: AccountService,
+    private alertService: AlertService
+  ) { }
 
   ngOnInit() {
     this.getAccounts();
@@ -20,6 +24,9 @@ export class AccountListComponent implements OnInit {
 
   getAccounts(): void {
     this.accountService.getAccounts()
-                        .subscribe(acc => this.accounts = acc);
+      .subscribe(acc => {
+        this.accounts = acc;
+        this.alertService.success('Loaded with success');
+      });
   }
 }

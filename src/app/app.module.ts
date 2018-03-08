@@ -17,9 +17,11 @@ import { PageNotFoundComponent } from './shared/page-not-found/page-not-found.co
 
 // MODULES
 import { AccountsModule } from './accounts/accounts.module';
+import { AlertComponent } from './shared/alert/alert.component';
+import { AlertService } from './shared/alert/alert.service';
 
 @NgModule({
-  declarations: [AppComponent, HeaderComponent, PageNotFoundComponent],
+  declarations: [AppComponent, HeaderComponent, PageNotFoundComponent, AlertComponent],
   imports: [
     BrowserModule,
     NgbModule.forRoot(),
@@ -27,7 +29,7 @@ import { AccountsModule } from './accounts/accounts.module';
     AccountsModule,
     AppRoutingModule
   ],
-  providers: [AccountService],
+  providers: [AccountService, AlertService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

@@ -33,4 +33,4 @@ https://stackoverflow.com/questions/48991372/angular-error-uncaught-in-promise-a
 
 ng serve --aot
 
-accounts doesn't update after insert 
+alert message doesn't appear on screen.
