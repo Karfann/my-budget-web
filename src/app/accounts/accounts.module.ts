@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from "@angular/forms";
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { AccountMainComponent } from './account-main/account-main.component';
 import { AccountListComponent } from './account-list/account-list.component';

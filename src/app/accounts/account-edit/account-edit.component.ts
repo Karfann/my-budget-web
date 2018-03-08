@@ -1,20 +1,20 @@
-import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute, Router } from "@angular/router";
-import { Location } from "@angular/common";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Location } from '@angular/common';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { AccountService } from "./../shared/account.service";
-import { Account } from "./../shared/account";
+import { AccountService } from './../shared/account.service';
+import { Account } from './../shared/account';
 
 @Component({
-  selector: "app-account-edit",
-  templateUrl: "./account-edit.component.html",
-  styleUrls: ["./account-edit.component.css"]
+  selector: 'app-account-edit',
+  templateUrl: './account-edit.component.html',
+  styleUrls: ['./account-edit.component.css']
 })
 export class AccountEditComponent implements OnInit {
   account: Account;
   form: FormGroup;
-  isFormReady: boolean = false;
+  isFormReady = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -30,23 +30,23 @@ export class AccountEditComponent implements OnInit {
   }
 
   getAccount(): void {
-    const id = +this.route.snapshot.paramMap.get("id");
+    const id = +this.route.snapshot.paramMap.get('id');
     this.accountService
       .getAccount(id)
       .subscribe(
         acc => {
           this.account = acc,
-            this.setFormValue()
-        })
+            this.setFormValue();
+        });
   }
 
   onSubmit(): void {
     this.prepareSave();
     this.accountService.updateAccount(this.account)
-      .subscribe(account => {
-        console.log(account);
+      .subscribe(editAccount => {
+        console.log(editAccount);
         this.router.navigate(['/accounts']);
-      });;
+      });
   }
 
   goBack(): void {
@@ -55,8 +55,8 @@ export class AccountEditComponent implements OnInit {
 
   private createForm(): void {
     this.form = this.fb.group({
-      name: ["", [Validators.required, Validators.minLength(3)]],
-      isActive: ["", Validators.required]
+      name: ['', [Validators.required, Validators.minLength(3)]],
+      isActive: ['', Validators.required]
     });
   }
 
