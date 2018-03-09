@@ -31,7 +31,6 @@ export class AccountNewComponent implements OnInit {
     const account = this.prepareSave();
     this.accountService.addAccount(account)
       .subscribe(acc => {
-        console.log(acc);
         this.alertService.success(`${acc.name} has been created with success`, true);
         this.router.navigate(['/accounts']);
       });

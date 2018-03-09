@@ -19,6 +19,7 @@ import { PageNotFoundComponent } from './shared/page-not-found/page-not-found.co
 import { AccountsModule } from './accounts/accounts.module';
 import { AlertComponent } from './shared/alert/alert.component';
 import { AlertService } from './shared/services/alert.service';
+import { LogService } from './shared/services/log.service';
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent, PageNotFoundComponent, AlertComponent],
@@ -29,7 +30,7 @@ import { AlertService } from './shared/services/alert.service';
     AccountsModule,
     AppRoutingModule
   ],
-  providers: [AccountService, AlertService],
+  providers: [AccountService, AlertService, LogService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

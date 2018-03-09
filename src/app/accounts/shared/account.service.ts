@@ -7,6 +7,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 
 import { Account } from './account';
 import { AlertService } from '../../shared/services/alert.service';
+import { LogService } from '../../shared/services/log.service';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -18,14 +19,15 @@ export class AccountService {
 
   constructor(
     private http: HttpClient,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private logService: LogService
   ) { }
 
   getAccounts(): Observable<Account[]> {
     return this.http
       .get<Account[]>(this.accountUrl)
       .pipe(
-        tap(list => this.log('fetched accounts')),
+        tap(list => this.logService.log(`fetched ${list.length} accounts`)),
         catchError(this.handleError('List Accounts', []))
       );
   }
@@ -34,7 +36,7 @@ export class AccountService {
     const url = `${this.accountUrl}/${id}`;
     return this.http.get<Account>(url)
       .pipe(
-        tap(_ => this.log(`fetched account id=${id}`)),
+        tap(_ => this.logService.log(`fetched account id=${id}`)),
         catchError(this.handleError<Account>('Show Account'))
       );
   }
@@ -42,7 +44,7 @@ export class AccountService {
   addAccount(account: Account): Observable<Account> {
     return this.http.post<Account>(this.accountUrl, account, httpOptions)
       .pipe(
-        tap((newAccount: Account) => this.log(`added account w/ id=${newAccount.id}`)),
+        tap((newAccount: Account) => this.logService.log(`added account id=${newAccount.id}`)),
         catchError(this.handleError<Account>('Added Account'))
       );
   }
@@ -51,7 +53,7 @@ export class AccountService {
     const url = `${this.accountUrl}/${account.id}`;
     return this.http.put(url, account, httpOptions)
       .pipe(
-        tap(_ => this.log(`updated account id=${account.id}`)),
+        tap(_ => this.logService.log(`updated account id=${account.id}`)),
         catchError(this.handleError<any>('Updated Account'))
       );
   }
@@ -75,18 +77,15 @@ export class AccountService {
    */
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
-      // TODO: send the error to remote logging infrastructure
-      console.error(error); // log to console instead
+
+      this.logService.error(`${operation} failed: ${error.message}`);
+
+      this.logService.error(error);
 
       this.alertService.error(`${operation} failed: Try it again in few minutes!`);
-      this.log(`${operation} failed: ${error.message}`);
 
       // Let the app keep running by returning an empty result.
       return of(result as T);
     };
-  }
-
-  private log(msg: string): void {
-    console.log(msg);
   }
 }
