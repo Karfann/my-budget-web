@@ -18,7 +18,7 @@ import { PageNotFoundComponent } from './shared/page-not-found/page-not-found.co
 // MODULES
 import { AccountsModule } from './accounts/accounts.module';
 import { AlertComponent } from './shared/alert/alert.component';
-import { AlertService } from './shared/alert/alert.service';
+import { AlertService } from './shared/services/alert.service';
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent, PageNotFoundComponent, AlertComponent],

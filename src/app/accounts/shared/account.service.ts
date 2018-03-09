@@ -6,7 +6,7 @@ import { of } from 'rxjs/observable/of';
 import { catchError, map, tap } from 'rxjs/operators';
 
 import { Account } from './account';
-import { AlertService } from '../../shared/alert/alert.service';
+import { AlertService } from '../../shared/services/alert.service';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
