@@ -33,4 +33,8 @@ https://stackoverflow.com/questions/48991372/angular-error-uncaught-in-promise-a
 
 ng serve --aot
 
-alert message doesn't appear on screen.
+show messages accounts
+
+error ok
+edit  ok
+new  todo

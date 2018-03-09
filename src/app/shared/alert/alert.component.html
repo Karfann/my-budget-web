@@ -1,5 +1,5 @@
-<div *ngFor="let alert of alerts">
-  <app-alert class="{{ cssClass(alert) }} alert-dismissable" (close)="removeAlert(alert)">
+<p *ngFor="let alert of alerts">
+  <ngb-alert [type]="alert.type" (close)="removeAlert(alert)">
     {{ alert.message }}
-  </app-alert>
-</div>
+  </ngb-alert>
+</p>

@@ -6,6 +6,7 @@ import { of } from 'rxjs/observable/of';
 import { catchError, map, tap } from 'rxjs/operators';
 
 import { Account } from './account';
+import { AlertService } from '../../shared/alert/alert.service';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -15,14 +16,17 @@ const httpOptions = {
 export class AccountService {
   private accountUrl = 'http://localhost:3000/accounts';
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private alertService: AlertService
+  ) { }
 
   getAccounts(): Observable<Account[]> {
     return this.http
       .get<Account[]>(this.accountUrl)
       .pipe(
         tap(list => this.log('fetched accounts')),
-        catchError(this.handleError('getAccounts', []))
+        catchError(this.handleError('List Accounts', []))
       );
   }
 
@@ -31,7 +35,7 @@ export class AccountService {
     return this.http.get<Account>(url)
       .pipe(
         tap(_ => this.log(`fetched account id=${id}`)),
-        catchError(this.handleError<Account>(`getAccount id=${id}`))
+        catchError(this.handleError<Account>('Show Account'))
       );
   }
 
@@ -39,7 +43,7 @@ export class AccountService {
     return this.http.post<Account>(this.accountUrl, account, httpOptions)
       .pipe(
         tap((newAccount: Account) => this.log(`added account w/ id=${newAccount.id}`)),
-        catchError(this.handleError<Account>('addAccount'))
+        catchError(this.handleError<Account>('Added Account'))
       );
   }
 
@@ -48,7 +52,7 @@ export class AccountService {
     return this.http.put(url, account, httpOptions)
       .pipe(
         tap(_ => this.log(`updated account id=${account.id}`)),
-        catchError(this.handleError<any>('updateAccount'))
+        catchError(this.handleError<any>('Updated Account'))
       );
   }
 
@@ -74,8 +78,8 @@ export class AccountService {
       // TODO: send the error to remote logging infrastructure
       console.error(error); // log to console instead
 
-      // TODO: better job of transforming error for user consumption
-      // this.log(`${operation} failed: ${error.message}`);
+      this.alertService.error(`${operation} failed: Try it again in few minutes!`);
+      this.log(`${operation} failed: ${error.message}`);
 
       // Let the app keep running by returning an empty result.
       return of(result as T);

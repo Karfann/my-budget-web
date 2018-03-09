@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { AccountService } from './../shared/account.service';
 import { Account } from './../shared/account';
+import { AlertService } from '../../shared/alert/alert.service';
 
 @Component({
   selector: 'app-account-edit',
@@ -21,7 +22,8 @@ export class AccountEditComponent implements OnInit {
     private location: Location,
     private accountService: AccountService,
     private fb: FormBuilder,
-    private router: Router
+    private router: Router,
+    private alertService: AlertService
   ) { }
 
   ngOnInit() {
@@ -36,15 +38,15 @@ export class AccountEditComponent implements OnInit {
       .subscribe(
         acc => {
           this.account = acc,
-            this.setFormValue();
+          this.setFormValue();
         });
   }
 
   onSubmit(): void {
     this.prepareSave();
     this.accountService.updateAccount(this.account)
-      .subscribe(editAccount => {
-        console.log(editAccount);
+      .subscribe(_ => {
+        this.alertService.success(`${this.account.name } account has been updated with success!`, true);
         this.router.navigate(['/accounts']);
       });
   }
