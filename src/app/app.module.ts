@@ -20,6 +20,7 @@ import { AccountsModule } from './accounts/accounts.module';
 import { AlertComponent } from './shared/alert/alert.component';
 import { AlertService } from './shared/services/alert.service';
 import { LogService } from './shared/services/log.service';
+import { TransactionService } from './transactions/shared/transaction.service';
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent, PageNotFoundComponent, AlertComponent],
@@ -30,7 +31,7 @@ import { LogService } from './shared/services/log.service';
     AccountsModule,
     AppRoutingModule
   ],
-  providers: [AccountService, AlertService, LogService],
+  providers: [AccountService, AlertService, LogService, TransactionService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

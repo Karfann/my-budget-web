@@ -1,15 +1,19 @@
-import { NgModule } from "@angular/core";
-import { RouterModule, Routes } from "@angular/router";
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
 
-import { PageNotFoundComponent } from "./shared/page-not-found/page-not-found.component";
+import { PageNotFoundComponent } from './shared/page-not-found/page-not-found.component';
 
 const appRoutes: Routes = [
   {
-    path: "accounts",
+    path: 'accounts',
     loadChildren: 'app/accounts/accounts.module#AccountsModule'
   },
-  { path: "", redirectTo: "", pathMatch: "full" },
-  { path: "**", component: PageNotFoundComponent }
+  {
+    path: 'transactions',
+    loadChildren: 'app/transactions/transactions.module#TransactionsModule'
+  },
+  { path: '', redirectTo: '', pathMatch: 'full' },
+  { path: '**', component: PageNotFoundComponent }
 ];
 
 @NgModule({
