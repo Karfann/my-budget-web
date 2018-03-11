@@ -11,9 +11,18 @@ import { AlertService } from '../../shared/services/alert.service';
 })
 export class TransactionListComponent implements OnInit {
 
-  constructor() { }
+  transactions: Transaction[];
+
+  constructor(
+    private transactionService: TransactionService,
+  ) { }
 
   ngOnInit() {
+    this.getTransactions();
   }
 
+  private getTransactions(): void {
+    this.transactionService.getTransactions()
+      .subscribe(list => this.transactions = list);
+  }
 }

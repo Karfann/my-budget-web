@@ -28,7 +28,7 @@ export class TransactionService {
       .get<Transaction[]>(this.transactionUrl)
       .pipe(
         tap(list => this.logService.log(`fetched ${list.length} transactions`)),
-        catchError(this.handleError('List Accounts', []))
+        catchError(this.handleError('List Transactions', []))
       );
   }
 
