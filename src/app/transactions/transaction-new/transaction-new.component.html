@@ -1,0 +1,46 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+  <div class="row">
+    <div class="form-group col-3">
+      <label for="date">Date</label>
+      <div class="input-group">
+        <input class="form-control" placeholder="yyyy-mm-dd" name="dp" formControlName="date" ngbDatepicker #d="ngbDatepicker">
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
+            <img src="img/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;" />
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group col-6">
+      <label for="description">Description</label>
+      <input type="text" class="form-control">
+    </div>
+    <div class="form-group col-3 ">
+      <label for="amount">Amount</label>
+      <input type="number" class="form-control">
+    </div>
+  </div>
+  <div class="row">
+    <div class="form-group col-6">
+      <label for="note">Note</label>
+      <textarea class="form-control" id="note" rows="5"></textarea>
+    </div>
+    <div class="form-group col-6">
+      <label for="account">Account</label>
+      <select class="form-control">
+        <option value="true">Abc</option>
+        <option value="false">ABN AMRO HOARE GOVETT CORPORATE FINANCE LTD</option>
+      </select>
+    </div>
+  </div>
+  <div class="row">
+    <div class="ml-auto col-3">
+      <div class="btn-group" role="group" aria-label="Actions">
+        <button type="submit" [disabled]="form.invalid" class="btn btn-success">Save</button>
+        <button type="reset" (click)="reset()" [disabled]="form.pristine" class="btn btn-danger">Reset</button>
+        <button type="button" (click)="goBack()" class="btn btn-light">Back</button>
+      </div>
+    </div>
+  </div>
+</form>

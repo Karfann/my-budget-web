@@ -7,6 +7,7 @@ import { TransactionRoutingModule } from './/transaction-routing.module';
 
 import { TransactionMainComponent } from './transaction-main/transaction-main.component';
 import { TransactionListComponent } from './transaction-list/transaction-list.component';
+import { TransactionNewComponent } from './transaction-new/transaction-new.component';
 
 @NgModule({
   imports: [
@@ -15,6 +16,10 @@ import { TransactionListComponent } from './transaction-list/transaction-list.co
     NgbModule,
     TransactionRoutingModule
   ],
-  declarations: [TransactionMainComponent, TransactionListComponent]
+  declarations: [
+    TransactionMainComponent,
+    TransactionListComponent,
+    TransactionNewComponent
+  ]
 })
 export class TransactionsModule { }
