@@ -8,6 +8,7 @@ import { TransactionRoutingModule } from './/transaction-routing.module';
 import { TransactionMainComponent } from './transaction-main/transaction-main.component';
 import { TransactionListComponent } from './transaction-list/transaction-list.component';
 import { TransactionNewComponent } from './transaction-new/transaction-new.component';
+import { TransactionEditComponent } from './transaction-edit/transaction-edit.component';
 
 @NgModule({
   imports: [
@@ -19,7 +20,9 @@ import { TransactionNewComponent } from './transaction-new/transaction-new.compo
   declarations: [
     TransactionMainComponent,
     TransactionListComponent,
-    TransactionNewComponent
-  ]
+    TransactionNewComponent,
+    TransactionEditComponent
+  ],
+  entryComponents: [TransactionEditComponent]
 })
 export class TransactionsModule { }

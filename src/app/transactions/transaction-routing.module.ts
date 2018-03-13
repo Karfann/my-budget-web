@@ -11,8 +11,7 @@ const routes: Routes = [
     component: TransactionMainComponent,
     children: [
       { path: '', component: TransactionListComponent },
-      { path: 'new', component: TransactionNewComponent },
-      // { path: 'detail/:id', component: AccountEditComponent }
+      { path: 'new', component: TransactionNewComponent }
     ]
   }
 ];
