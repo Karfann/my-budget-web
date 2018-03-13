@@ -4,9 +4,11 @@ import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 
 import { TransactionService } from '../shared/transaction.service';
+import { Transaction } from '../shared/transaction';
+
 import { AlertService } from '../../shared/services/alert.service';
 import { AccountService } from '../../accounts/shared/account.service';
-
+import { Account } from '../../accounts/shared/account';
 
 @Component({
   selector: 'app-transaction-new',
@@ -15,6 +17,7 @@ import { AccountService } from '../../accounts/shared/account.service';
 })
 export class TransactionNewComponent implements OnInit {
   form: FormGroup;
+  accounts: Account[];
 
   constructor(
     private fb: FormBuilder,
@@ -26,11 +29,13 @@ export class TransactionNewComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.getAccounts();
     this.createForm();
   }
 
   onSubmit(): void {
-    //
+    const transaction = this.prepareSave();
+    console.log(transaction);
   }
 
   goBack(): void {
@@ -47,8 +52,32 @@ export class TransactionNewComponent implements OnInit {
       description: ['', Validators.required],
       note: '',
       amount: ['0.00', Validators.required],
-      account_id: ''
+      account_id: ['', Validators.required]
     });
+    this.form.controls['account_id'].setValue('', { onlySelf: true });
+  }
+
+  private getAccounts(): void {
+    this.accountService.getAccounts()
+      .subscribe(list => this.accounts = list);
+  }
+
+  private prepareSave(): Transaction {
+    const formModel = this.form.value;
+    const save: Transaction = {
+      id: 0,
+      date: this.formatDate(formModel.date as number),
+      description: formModel.description as string,
+      note: formModel.note as string,
+      amount: formModel.amount as number,
+      account_id: formModel.account_id as number
+    };
+    return save;
+  }
+
+  private formatDate(data: any): Date {
+    const temp = `${data['year']}/${data['month']}/${data['day']}`;
+    return new Date(temp);
   }
 
 }
