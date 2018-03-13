@@ -35,7 +35,11 @@ export class TransactionNewComponent implements OnInit {
 
   onSubmit(): void {
     const transaction = this.prepareSave();
-    console.log(transaction);
+    this.transactionService.addTransaction(transaction)
+      .subscribe(t => {
+        this.alertService.success('Transaction has been created with success', true),
+        this.router.navigate(['/transactions']);
+      });
   }
 
   goBack(): void {

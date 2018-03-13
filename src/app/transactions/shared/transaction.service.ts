@@ -32,6 +32,14 @@ export class TransactionService {
       );
   }
 
+  addTransaction(transaction: Transaction): Observable<Transaction> {
+    return this.http.post<Transaction>(this.transactionUrl, transaction, httpOptions)
+      .pipe(
+        tap((newTransaction: Transaction) => this.logService.log(`added transacation id=${newTransaction.id}`)),
+        catchError(this.handleError<Transaction>('Added Transaction'))
+      );
+  }
+
   /**
    * Handle Http operation that failed.
    * Let the app continue.
