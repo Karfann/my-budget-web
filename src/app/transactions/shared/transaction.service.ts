@@ -32,6 +32,15 @@ export class TransactionService {
       );
   }
 
+  getTransaction(id: number): Observable<Transaction> {
+    const url = `${this.transactionUrl}/${id}`;
+    return this.http.get<Transaction>(url)
+      .pipe(
+        tap(_ => this.logService.log(`fetched transaction id=${id}`)),
+        catchError(this.handleError<Transaction>('Show Transaction'))
+      );
+  }
+
   addTransaction(transaction: Transaction): Observable<Transaction> {
     return this.http.post<Transaction>(this.transactionUrl, transaction, httpOptions)
       .pipe(

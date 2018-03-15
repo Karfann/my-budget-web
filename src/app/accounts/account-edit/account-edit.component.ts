@@ -28,31 +28,31 @@ export class AccountEditComponent implements OnInit {
 
   ngOnInit() {
     this.getAccount();
-    this.createForm();
-  }
-
-  getAccount(): void {
-    const id = +this.route.snapshot.paramMap.get('id');
-    this.accountService
-      .getAccount(id)
-      .subscribe(
-        acc => {
-          this.account = acc,
-          this.setFormValue();
-        });
   }
 
   onSubmit(): void {
     this.prepareSave();
     this.accountService.updateAccount(this.account)
       .subscribe(_ => {
-        this.alertService.success(`${this.account.name } account has been updated with success!`, true);
+        this.alertService.success(`${this.account.name} account has been updated with success!`, true);
         this.router.navigate(['/accounts']);
       });
   }
 
   goBack(): void {
     this.location.back();
+  }
+
+  private getAccount(): void {
+    const id = +this.route.snapshot.paramMap.get('id');
+    this.accountService
+      .getAccount(id)
+      .subscribe(
+        acc => {
+          this.account = acc,
+            this.createForm(),
+            this.setFormValue();
+        });
   }
 
   private createForm(): void {
