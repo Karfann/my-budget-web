@@ -33,8 +33,5 @@ https://stackoverflow.com/questions/48991372/angular-error-uncaught-in-promise-a
 
 ng serve --aot
 
-show messages accounts
+edit transaction error after insert the tag form.
 
-error ok
-edit  ok
-new  todo

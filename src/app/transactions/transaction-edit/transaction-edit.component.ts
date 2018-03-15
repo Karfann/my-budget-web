@@ -1,8 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { Location } from '@angular/common';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbDateParserFormatter, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 
 import { AccountService } from '../../accounts/shared/account.service';
 import { Account } from '../../accounts/shared/account';
@@ -26,7 +25,6 @@ export class TransactionEditComponent implements OnInit {
 
   constructor(
     public activeModal: NgbActiveModal,
-    private location: Location,
     private fb: FormBuilder,
     private router: Router,
     private accountService: AccountService,
@@ -39,8 +37,8 @@ export class TransactionEditComponent implements OnInit {
     this.getTransaction();
   }
 
-  goBack(): void {
-    this.location.back();
+  onSubmit(): void {
+    //
   }
 
   private getTransaction(): void {
@@ -49,7 +47,8 @@ export class TransactionEditComponent implements OnInit {
       .subscribe(
         t => {
           this.transaction = t,
-          this.createForm(),
+            console.log(t);
+          this.createForm();
           this.setFormValue();
         }
       );
@@ -63,8 +62,9 @@ export class TransactionEditComponent implements OnInit {
   }
 
   private setFormValue(): void {
+    const tempDate = new Date(this.transaction.date);
     this.form.setValue({
-      date: this.transaction.date,
+      date: this.formatDateToDatepicker(tempDate),
       description: this.transaction.description,
       note: this.transaction.note,
       amount: this.transaction.amount,
@@ -80,6 +80,16 @@ export class TransactionEditComponent implements OnInit {
       amount: ['0.00', Validators.required],
       account_id: ['', Validators.required]
     });
+  }
+
+  private formatDate(data: any): Date {
+    const temp = `${data['year']}/${data['month']}/${data['day']}`;
+    return new Date(temp);
+  }
+
+  private formatDateToDatepicker(date: Date): any {
+    const datepicker = { year: date.getFullYear(), month: date.getMonth() + 1, day: date.getDate() };
+    return datepicker;
   }
 
 }
