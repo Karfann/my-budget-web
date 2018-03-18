@@ -49,6 +49,15 @@ export class TransactionService {
       );
   }
 
+  updateTransaction(transaction: Transaction): Observable<any> {
+    const url = `${this.transactionUrl}/${transaction.id}`;
+    return this.http.put(url, transaction, httpOptions)
+      .pipe(
+        tap(_ => this.logService.log(`updated transaction id=${transaction.id}`)),
+        catchError(this.handleError<Transaction>('Updated Transaction'))
+      );
+  }
+
   /**
    * Handle Http operation that failed.
    * Let the app continue.

@@ -38,7 +38,16 @@ export class TransactionEditComponent implements OnInit {
   }
 
   onSubmit(): void {
-    //
+    const editTransaction = this.prepareSave();
+    this.transactionService.updateTransaction(editTransaction)
+      .subscribe(_ => {
+        this.alertService.success('Transaction has been updated with success!', true);
+        this.closeModal(editTransaction);
+      });
+  }
+
+  closeModal(transaction?: Transaction): void {
+    this.activeModal.close(transaction);
   }
 
   private getTransaction(): void {
@@ -47,7 +56,6 @@ export class TransactionEditComponent implements OnInit {
       .subscribe(
         t => {
           this.transaction = t,
-            console.log(t);
           this.createForm();
           this.setFormValue();
         }
@@ -90,6 +98,19 @@ export class TransactionEditComponent implements OnInit {
   private formatDateToDatepicker(date: Date): any {
     const datepicker = { year: date.getFullYear(), month: date.getMonth() + 1, day: date.getDate() };
     return datepicker;
+  }
+
+  private prepareSave(): Transaction {
+    const formModel = this.form.value;
+    const save: Transaction = {
+      id: this.transaction.id,
+      date: this.formatDate(formModel.date as number),
+      description: formModel.description as string,
+      note: formModel.note as string,
+      amount: formModel.amount as number,
+      account_id: formModel.account_id as number
+    };
+    return save;
   }
 
 }
