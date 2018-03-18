@@ -58,6 +58,15 @@ export class TransactionService {
       );
   }
 
+  deleteTransaction(transaction: Transaction): Observable<Transaction> {
+    const url = `${this.transactionUrl}/${transaction.id}`;
+    return this.http.delete<Transaction>(url, httpOptions)
+      .pipe(
+        tap(_ => this.logService.log(`deleted hero id=${transaction.id}`)),
+        catchError(this.handleError<Transaction>('Deleted Transaction'))
+      );
+  }
+
   /**
    * Handle Http operation that failed.
    * Let the app continue.

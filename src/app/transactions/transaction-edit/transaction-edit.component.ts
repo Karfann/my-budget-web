@@ -50,6 +50,13 @@ export class TransactionEditComponent implements OnInit {
     this.activeModal.close(transaction);
   }
 
+  deleteTransaction(): void {
+    this.transactionService.deleteTransaction(this.transaction)
+      .subscribe(_ => {
+        this.alertService.success('Transaction has been deleted with success!', true);
+      });
+  }
+
   private getTransaction(): void {
     this.transactionService
       .getTransaction(this.transaction_id)

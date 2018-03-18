@@ -33,5 +33,7 @@ https://stackoverflow.com/questions/48991372/angular-error-uncaught-in-promise-a
 
 ng serve --aot
 
-edit transaction error after insert the tag form.
+TODO: 
+
+- Fix bug after update transaction: list doesn't update
 
