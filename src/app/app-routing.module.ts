@@ -12,6 +12,10 @@ const appRoutes: Routes = [
     path: 'transactions',
     loadChildren: 'app/transactions/transactions.module#TransactionsModule'
   },
+  {
+    path: 'status',
+    loadChildren: 'app/status/status.module#StatusModule'
+  },
   { path: '', redirectTo: '', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent }
 ];
