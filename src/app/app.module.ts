@@ -32,6 +32,7 @@ import { TransactionService } from './transactions/shared/transaction.service';
     AppRoutingModule
   ],
   providers: [AccountService, AlertService, LogService, TransactionService],
+  // entryComponents: [TransactionEditComponent]
   bootstrap: [AppComponent]
 })
 export class AppModule {}

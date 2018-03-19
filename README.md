@@ -32,8 +32,3 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 https://stackoverflow.com/questions/48991372/angular-error-uncaught-in-promise-at-webpackasynccontext-eval-at-src
 
 ng serve --aot
-
-TODO: 
-
-- Fix bug after update transaction: list doesn't update
-

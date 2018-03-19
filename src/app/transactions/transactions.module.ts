@@ -22,7 +22,6 @@ import { TransactionEditComponent } from './transaction-edit/transaction-edit.co
     TransactionListComponent,
     TransactionNewComponent,
     TransactionEditComponent
-  ],
-  entryComponents: [TransactionEditComponent]
+  ]
 })
 export class TransactionsModule { }

@@ -1,7 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NgbActiveModal, NgbDateParserFormatter, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDateParserFormatter, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 
 import { AccountService } from '../../accounts/shared/account.service';
 import { Account } from '../../accounts/shared/account';
@@ -17,16 +17,15 @@ import { AlertService } from '../../shared/services/alert.service';
 })
 export class TransactionEditComponent implements OnInit {
 
-  @Input() transaction_id;
   form: FormGroup;
   isFormReady = false;
   accounts: Account[];
   transaction: Transaction;
 
   constructor(
-    public activeModal: NgbActiveModal,
     private fb: FormBuilder,
     private router: Router,
+    private route: ActivatedRoute,
     private accountService: AccountService,
     private alertService: AlertService,
     private transactionService: TransactionService
@@ -42,29 +41,27 @@ export class TransactionEditComponent implements OnInit {
     this.transactionService.updateTransaction(editTransaction)
       .subscribe(_ => {
         this.alertService.success('Transaction has been updated with success!', true);
-        this.closeModal(editTransaction);
+        this.router.navigate(['/transactions']);
       });
-  }
-
-  closeModal(transaction?: Transaction): void {
-    this.activeModal.close(transaction);
   }
 
   deleteTransaction(): void {
     this.transactionService.deleteTransaction(this.transaction)
       .subscribe(_ => {
         this.alertService.success('Transaction has been deleted with success!', true);
+        this.router.navigate(['/transactions']);
       });
   }
 
   private getTransaction(): void {
+    const id = +this.route.snapshot.paramMap.get('id');
     this.transactionService
-      .getTransaction(this.transaction_id)
+      .getTransaction(id)
       .subscribe(
         t => {
           this.transaction = t,
-          this.createForm();
-          this.setFormValue();
+            this.createForm(),
+            this.setFormValue();
         }
       );
   }

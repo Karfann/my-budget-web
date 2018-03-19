@@ -1,6 +1,6 @@
 <div class="card" *ngIf="account">
   <div class="card-header">
-    {{ account.name}} : {{ account.balance | currency}}
+    Balance: {{ account.balance | currency}}
   </div>
   <div class="card-body">
     <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form-inline" novalidate>

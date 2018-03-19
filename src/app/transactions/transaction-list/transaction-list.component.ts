@@ -30,8 +30,4 @@ export class TransactionListComponent implements OnInit {
       .subscribe(list => this.transactions = list);
   }
 
-  public open(transaction_id: number): void {
-    const modalRef = this.modalService.open(TransactionEditComponent, { size: 'lg' });
-    modalRef.componentInstance.transaction_id = transaction_id;
-  }
 }
