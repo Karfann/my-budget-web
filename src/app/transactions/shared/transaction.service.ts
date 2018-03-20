@@ -62,7 +62,7 @@ export class TransactionService {
     const url = `${this.transactionUrl}/${transaction.id}`;
     return this.http.delete<Transaction>(url, httpOptions)
       .pipe(
-        tap(_ => this.logService.log(`deleted hero id=${transaction.id}`)),
+        tap(_ => this.logService.log(`deleted transaction id=${transaction.id}`)),
         catchError(this.handleError<Transaction>('Deleted Transaction'))
       );
   }

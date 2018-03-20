@@ -9,30 +9,36 @@ import { AppRoutingModule } from './app-routing.module';
 
 // SERVICES
 import { AccountService } from './accounts/shared/account.service';
-
-// COMPONENTES
-import { AppComponent } from './app.component';
-import { HeaderComponent } from './shared/header/header.component';
-import { PageNotFoundComponent } from './shared/page-not-found/page-not-found.component';
-
-// MODULES
-import { AccountsModule } from './accounts/accounts.module';
-import { AlertComponent } from './shared/alert/alert.component';
 import { AlertService } from './shared/services/alert.service';
 import { LogService } from './shared/services/log.service';
 import { TransactionService } from './transactions/shared/transaction.service';
+import { StatusService } from './status/shared/status.service';
+
+// COMPONENTES
+import { AppComponent } from './app.component';
+import { AlertComponent } from './shared/alert/alert.component';
+import { HeaderComponent } from './shared/header/header.component';
+import { PageNotFoundComponent } from './shared/page-not-found/page-not-found.component';
 
 @NgModule({
-  declarations: [AppComponent, HeaderComponent, PageNotFoundComponent, AlertComponent],
+  declarations: [
+    AppComponent,
+    HeaderComponent,
+    PageNotFoundComponent,
+    AlertComponent],
   imports: [
     BrowserModule,
     NgbModule.forRoot(),
     HttpClientModule,
-    AccountsModule,
     AppRoutingModule
   ],
-  providers: [AccountService, AlertService, LogService, TransactionService],
+  providers: [
+    AccountService,
+    AlertService,
+    LogService,
+    TransactionService,
+    StatusService],
   // entryComponents: [TransactionEditComponent]
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }
