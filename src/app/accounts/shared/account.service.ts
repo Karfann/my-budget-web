@@ -69,6 +69,10 @@ export class AccountService {
   //     );
   // }
 
+  getActiveAccounts(accounts: Account[]): Account[] {
+    return accounts.filter(item => item.isActive === true);
+  }
+
   /**
    * Handle Http operation that failed.
    * Let the app continue.
@@ -88,4 +92,5 @@ export class AccountService {
       return of(result as T);
     };
   }
+
 }

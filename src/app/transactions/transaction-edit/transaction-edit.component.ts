@@ -68,7 +68,7 @@ export class TransactionEditComponent implements OnInit {
   private getAccounts(): void {
     this.accountService.getAccounts()
       .subscribe(
-        list => this.accounts = list
+        list => this.accounts = this.accountService.getActiveAccounts(list)
       );
   }
 

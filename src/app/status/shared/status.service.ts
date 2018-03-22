@@ -67,6 +67,10 @@ export class StatusService {
       );
   }
 
+  getActiveStatus(status: Status[]): Status[] {
+    return status.filter(item => item.isActive === true);
+  }
+
   /**
    * Handle Http operation that failed.
    * Let the app continue.

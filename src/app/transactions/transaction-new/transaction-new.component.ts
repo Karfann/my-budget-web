@@ -63,7 +63,7 @@ export class TransactionNewComponent implements OnInit {
 
   private getAccounts(): void {
     this.accountService.getAccounts()
-      .subscribe(list => this.accounts = list);
+      .subscribe(list => this.accounts = this.accountService.getActiveAccounts(list));
   }
 
   private prepareSave(): Transaction {
