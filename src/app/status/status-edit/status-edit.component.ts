@@ -55,18 +55,21 @@ export class StatusEditComponent implements OnInit {
 
   private createForm(): void {
     this.form = this.fb.group({
-      name: ['', [Validators.required, Validators.minLength(3)]]
+      name: ['', [Validators.required, Validators.minLength(3)]],
+      isActive: ['', Validators.required]
     });
   }
 
   private setFormValue(): void {
     this.form.setValue({
-      name: this.status.name
+      name: this.status.name,
+      isActive: this.status.isActive
     });
   }
 
   private prepareSave(): void {
     const formModel = this.form.value;
     this.status.name = formModel.name as string;
+    this.status.isActive = formModel.isActive as boolean;
   }
 }

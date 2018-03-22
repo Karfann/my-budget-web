@@ -1,6 +1,9 @@
 <ul class="list-group">
   <a 
-  *ngFor="let status of statuses" 
+    *ngFor="let status of statuses"
     [routerLink]="['detail',status.id]" 
-    class="list-group-item list-group-item-action">{{ status.name }}</a>
+    class="list-group-item d-flex justify-content-between align-items-center">
+    {{ status.name }}
+    <span class="badge badge-primary badge-pill">{{ status.isActive }}</span>
+  </a>
 </ul>

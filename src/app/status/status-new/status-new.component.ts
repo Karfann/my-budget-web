@@ -47,15 +47,18 @@ export class StatusNewComponent implements OnInit {
 
   private createForm(): void {
     this.form = this.fb.group({
-      name: ['', [Validators.required, Validators.minLength(3)]]
+      name: ['', [Validators.required, Validators.minLength(3)]],
+      isActive: ['', Validators.required]
     });
+    this.form.controls['isActive'].setValue(true, { onlySelf: true });
   }
 
   private prepareSave(): Status {
     const formModel = this.form.value;
     const saveStatus: Status = {
       id: 0,
-      name: formModel.name as string
+      name: formModel.name as string,
+      isActive: formModel.isActive as boolean
     };
     return saveStatus;
   }
