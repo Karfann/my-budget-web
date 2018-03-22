@@ -1,3 +1,32 @@
-<p>
-  status-edit works!
-</p>
+<div class="card" *ngIf="status">
+  <div class="card-header">
+    Edit
+  </div>
+  <div class="card-body">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form-inline" novalidate>
+
+      <div class="form-group mb-2 col-6">
+        <label for="Name" class="sr-only">Name</label>
+        <input type="text" class="form-control col-12" id="Name" formControlName="name">
+      </div>
+      <!-- <div class="form-group mx-sm-3 mb-2">
+        <label for="status" class="sr-only">Status</label>
+        <select class="form-control" formControlName="isActive">
+          <option value="true">Active</option>
+          <option value="false">Inactive</option>
+        </select>
+      </div> -->
+      <button type="submit" [disabled]="form.invalid" class="btn btn-primary mb-2">Save</button>
+      <button type="button" (click)="goBack()" class="btn btn-light mb-2">Back</button>
+    </form>
+      <div *ngIf="form.controls.name.invalid && (form.controls.name.dirty || form.controls.name.touched)" 
+        class="alert alert-danger col-8"
+        role="alert">
+        <div [hidden]="!form.controls['name'].errors.required">Name is required.</div>
+        <div [hidden]="!form.controls['name'].errors.minlength">Name must be at least 4 characters long.</div>
+      </div>
+      <div class="alert alert-light text-right">
+        Last update: {{ status.updated_at | date:"MM/dd/yy" }}
+      </div>
+  </div>
+</div>

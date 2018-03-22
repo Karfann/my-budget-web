@@ -18,7 +18,6 @@ import { AlertService } from '../../shared/services/alert.service';
 export class TransactionEditComponent implements OnInit {
 
   form: FormGroup;
-  isFormReady = false;
   accounts: Account[];
   transaction: Transaction;
 

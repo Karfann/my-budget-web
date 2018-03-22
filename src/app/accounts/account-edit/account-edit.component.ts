@@ -15,7 +15,6 @@ import { AlertService } from '../../shared/services/alert.service';
 export class AccountEditComponent implements OnInit {
   account: Account;
   form: FormGroup;
-  isFormReady = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -67,7 +66,6 @@ export class AccountEditComponent implements OnInit {
       name: this.account.name,
       isActive: this.account.isActive
     });
-    this.isFormReady = true;
   }
 
   private prepareSave(): void {
