@@ -5,9 +5,13 @@ import { NgbDateParserFormatter, NgbDateStruct } from '@ng-bootstrap/ng-bootstra
 
 import { AccountService } from '../../accounts/shared/account.service';
 import { Account } from '../../accounts/shared/account';
+
 import { TransactionService } from '../shared/transaction.service';
 import { Transaction } from '../shared/transaction';
+
 import { AlertService } from '../../shared/services/alert.service';
+import { Status } from '../../status/shared/status';
+import { StatusService } from '../../status/shared/status.service';
 
 @Component({
   selector: 'app-transaction-edit',
@@ -18,6 +22,7 @@ export class TransactionEditComponent implements OnInit {
 
   form: FormGroup;
   accounts: Account[];
+  status: Status[];
   transaction: Transaction;
 
   constructor(
@@ -26,7 +31,8 @@ export class TransactionEditComponent implements OnInit {
     private route: ActivatedRoute,
     private accountService: AccountService,
     private alertService: AlertService,
-    private transactionService: TransactionService
+    private transactionService: TransactionService,
+    private statusService: StatusService
   ) { }
 
   ngOnInit() {
@@ -55,9 +61,17 @@ export class TransactionEditComponent implements OnInit {
       .subscribe(
         list => {
           this.accounts = this.accountService.getActiveAccounts(list),
-            this.getTransaction();
+            this.getStatus();
         }
       );
+  }
+
+  private getStatus(): void {
+    this.statusService.getStatuses()
+      .subscribe(list => {
+        this.status = this.statusService.getActiveStatus(list),
+          this.getTransaction();
+      });
   }
 
   private getTransaction(): void {
@@ -69,7 +83,7 @@ export class TransactionEditComponent implements OnInit {
           this.transaction = t,
             this.createForm(),
             this.setFormValue(),
-            this.validateIfAccountIsActive();
+            this.validateIfAttrsIsActive();
         }
       );
   }
@@ -81,7 +95,8 @@ export class TransactionEditComponent implements OnInit {
       description: this.transaction.description,
       note: this.transaction.note,
       amount: this.transaction.amount,
-      account_id: this.transaction.account_id
+      account_id: this.transaction.account_id,
+      status_id: this.transaction.status_id
     });
   }
 
@@ -91,7 +106,8 @@ export class TransactionEditComponent implements OnInit {
       description: ['', Validators.required],
       note: '',
       amount: ['0.00', Validators.required],
-      account_id: ['', Validators.required]
+      account_id: ['', Validators.required],
+      status_id: ['', Validators.required]
     });
   }
 
@@ -113,16 +129,27 @@ export class TransactionEditComponent implements OnInit {
       description: formModel.description as string,
       note: formModel.note as string,
       amount: formModel.amount as number,
-      account_id: formModel.account_id as number
+      account_id: formModel.account_id as number,
+      status_id: formModel.status_id as number
     };
     return save;
   }
 
-  private validateIfAccountIsActive(): void {
-    const qtd = this.accounts.filter(a => a.id === this.transaction.account_id);
-    if (qtd.length === 0) {
-      this.alertService.warn('This transaction has an unactivated account. Please, fix it!');
+  private validateIfAttrsIsActive(): void {
+
+    let msg = '';
+
+    const qtdAccounts = this.accounts.filter(a => a.id === this.transaction.account_id);
+    if (qtdAccounts.length === 0) { msg = 'Account /'; }
+
+    const qtdStatus = this.status.filter(a => a.id === this.transaction.status_id);
+    if (qtdStatus.length === 0) { msg += ' Status /'; }
+
+    if (msg.length > 0) {
+      this.alertService.warn(`This transaction has an unactivated ${msg}.`);
     }
   }
+
+
 
 }
