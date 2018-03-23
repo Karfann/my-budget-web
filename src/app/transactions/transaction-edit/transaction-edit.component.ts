@@ -9,7 +9,6 @@ import { TransactionService } from '../shared/transaction.service';
 import { Transaction } from '../shared/transaction';
 import { AlertService } from '../../shared/services/alert.service';
 
-
 @Component({
   selector: 'app-transaction-edit',
   templateUrl: './transaction-edit.component.html',
@@ -32,7 +31,6 @@ export class TransactionEditComponent implements OnInit {
 
   ngOnInit() {
     this.getAccounts();
-    this.getTransaction();
   }
 
   onSubmit(): void {
@@ -52,6 +50,16 @@ export class TransactionEditComponent implements OnInit {
       });
   }
 
+  private getAccounts(): void {
+    this.accountService.getAccounts()
+      .subscribe(
+        list => {
+          this.accounts = this.accountService.getActiveAccounts(list),
+            this.getTransaction();
+        }
+      );
+  }
+
   private getTransaction(): void {
     const id = +this.route.snapshot.paramMap.get('id');
     this.transactionService
@@ -60,15 +68,9 @@ export class TransactionEditComponent implements OnInit {
         t => {
           this.transaction = t,
             this.createForm(),
-            this.setFormValue();
+            this.setFormValue(),
+            this.validateIfAccountIsActive();
         }
-      );
-  }
-
-  private getAccounts(): void {
-    this.accountService.getAccounts()
-      .subscribe(
-        list => this.accounts = this.accountService.getActiveAccounts(list)
       );
   }
 
@@ -114,6 +116,13 @@ export class TransactionEditComponent implements OnInit {
       account_id: formModel.account_id as number
     };
     return save;
+  }
+
+  private validateIfAccountIsActive(): void {
+    const qtd = this.accounts.filter(a => a.id === this.transaction.account_id);
+    if (qtd.length === 0) {
+      this.alertService.warn('This transaction has an unactivated account. Please, fix it!');
+    }
   }
 
 }
