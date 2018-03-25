@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NgbDateParserFormatter, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDateParserFormatter, NgbDateStruct, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { AccountService } from '../../accounts/shared/account.service';
 import { Account } from '../../accounts/shared/account';
@@ -12,6 +12,7 @@ import { Transaction } from '../shared/transaction';
 import { AlertService } from '../../shared/services/alert.service';
 import { Status } from '../../status/shared/status';
 import { StatusService } from '../../status/shared/status.service';
+import { ModalComponent } from '../../shared/modal/modal.component';
 
 @Component({
   selector: 'app-transaction-edit',
@@ -32,7 +33,8 @@ export class TransactionEditComponent implements OnInit {
     private accountService: AccountService,
     private alertService: AlertService,
     private transactionService: TransactionService,
-    private statusService: StatusService
+    private statusService: StatusService,
+    private modalService: NgbModal
   ) { }
 
   ngOnInit() {
@@ -54,6 +56,18 @@ export class TransactionEditComponent implements OnInit {
         this.alertService.success('Transaction has been deleted with success!', true);
         this.router.navigate(['/transactions']);
       });
+  }
+
+  public open(): void {
+    // const modalRef = this.modalService.open(ModalComponent, { size: 'lg' });
+    const modalRef = this.modalService.open(ModalComponent);
+    modalRef.componentInstance.message = `delete this transaction: ${this.transaction.description}`;
+    modalRef.componentInstance.returnAction.subscribe(($e) => {
+      console.log($e);
+      if ($e) {
+        this.deleteTransaction();
+      }
+    });
   }
 
   private getAccounts(): void {

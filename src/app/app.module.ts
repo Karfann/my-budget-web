@@ -19,13 +19,15 @@ import { AppComponent } from './app.component';
 import { AlertComponent } from './shared/alert/alert.component';
 import { HeaderComponent } from './shared/header/header.component';
 import { PageNotFoundComponent } from './shared/page-not-found/page-not-found.component';
+import { ModalComponent } from './shared/modal/modal.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     PageNotFoundComponent,
-    AlertComponent],
+    AlertComponent,
+    ModalComponent],
   imports: [
     BrowserModule,
     NgbModule.forRoot(),
@@ -38,7 +40,7 @@ import { PageNotFoundComponent } from './shared/page-not-found/page-not-found.co
     LogService,
     TransactionService,
     StatusService],
-  // entryComponents: [TransactionEditComponent]
+  entryComponents: [ModalComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
