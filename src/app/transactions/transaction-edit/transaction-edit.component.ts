@@ -3,16 +3,20 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbDateParserFormatter, NgbDateStruct, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
-import { AccountService } from '../../accounts/shared/account.service';
 import { Account } from '../../accounts/shared/account';
+import { AccountService } from '../../accounts/shared/account.service';
 
-import { TransactionService } from '../shared/transaction.service';
 import { Transaction } from '../shared/transaction';
+import { TransactionService } from '../shared/transaction.service';
 
-import { AlertService } from '../../shared/services/alert.service';
 import { Status } from '../../status/shared/status';
 import { StatusService } from '../../status/shared/status.service';
+
+import { Category } from '../../categories/shared/category';
+import { CategoryService } from '../../categories/shared/category.service';
+
 import { ModalComponent } from '../../shared/modal/modal.component';
+import { AlertService } from '../../shared/services/alert.service';
 
 @Component({
   selector: 'app-transaction-edit',
@@ -24,6 +28,7 @@ export class TransactionEditComponent implements OnInit {
   form: FormGroup;
   accounts: Account[];
   status: Status[];
+  categories: Category[];
   transaction: Transaction;
 
   constructor(
@@ -34,6 +39,7 @@ export class TransactionEditComponent implements OnInit {
     private alertService: AlertService,
     private transactionService: TransactionService,
     private statusService: StatusService,
+    private categoryService: CategoryService,
     private modalService: NgbModal
   ) { }
 
@@ -59,7 +65,6 @@ export class TransactionEditComponent implements OnInit {
   }
 
   public open(): void {
-    // const modalRef = this.modalService.open(ModalComponent, { size: 'lg' });
     const modalRef = this.modalService.open(ModalComponent);
     modalRef.componentInstance.message = `delete this transaction: ${this.transaction.description}`;
     modalRef.componentInstance.returnAction.subscribe(($e) => {
@@ -84,8 +89,16 @@ export class TransactionEditComponent implements OnInit {
     this.statusService.getStatuses()
       .subscribe(list => {
         this.status = this.statusService.getActiveStatus(list),
-          this.getTransaction();
+          this.getCategories();
       });
+  }
+
+  private getCategories(): void {
+    this.categoryService.getCategories()
+    .subscribe(list => {
+      this.categories = this.categoryService.getActiveCategories(list),
+      this.getTransaction();
+    });
   }
 
   private getTransaction(): void {
@@ -110,7 +123,8 @@ export class TransactionEditComponent implements OnInit {
       note: this.transaction.note,
       amount: this.transaction.amount,
       account_id: this.transaction.account_id,
-      status_id: this.transaction.status_id
+      status_id: this.transaction.status_id,
+      category_id: this.transaction.category_id
     });
   }
 
@@ -121,7 +135,8 @@ export class TransactionEditComponent implements OnInit {
       note: '',
       amount: ['0.00', Validators.required],
       account_id: ['', Validators.required],
-      status_id: ['', Validators.required]
+      status_id: ['', Validators.required],
+      category_id: ['', Validators.required]
     });
   }
 
@@ -144,7 +159,8 @@ export class TransactionEditComponent implements OnInit {
       note: formModel.note as string,
       amount: formModel.amount as number,
       account_id: formModel.account_id as number,
-      status_id: formModel.status_id as number
+      status_id: formModel.status_id as number,
+      category_id: formModel.category_id as number
     };
     return save;
   }
@@ -154,16 +170,17 @@ export class TransactionEditComponent implements OnInit {
     let msg = '';
 
     const qtdAccounts = this.accounts.filter(a => a.id === this.transaction.account_id);
-    if (qtdAccounts.length === 0) { msg = 'Account /'; }
+    if (qtdAccounts.length === 0) { msg = 'Account; '; }
 
     const qtdStatus = this.status.filter(a => a.id === this.transaction.status_id);
-    if (qtdStatus.length === 0) { msg += ' Status /'; }
+    if (qtdStatus.length === 0) { msg += 'Status; '; }
+
+    const qtdCategories = this.categories.filter(a => a.id === this.transaction.category_id);
+    if (qtdCategories.length === 0) { msg += 'Categories; '; }
 
     if (msg.length > 0) {
-      this.alertService.warn(`This transaction has an unactivated ${msg}.`);
+      this.alertService.warn(`This transaction has an unactivated ${msg}`);
     }
   }
-
-
 
 }

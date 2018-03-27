@@ -14,6 +14,9 @@ import { Account } from '../../accounts/shared/account';
 import { StatusService } from '../../status/shared/status.service';
 import { Status } from '../../status/shared/status';
 
+import { CategoryService } from '../../categories/shared/category.service';
+import { Category } from '../../categories/shared/category';
+
 @Component({
   selector: 'app-transaction-new',
   templateUrl: './transaction-new.component.html',
@@ -23,6 +26,7 @@ export class TransactionNewComponent implements OnInit {
   form: FormGroup;
   accounts: Account[];
   status: Status[];
+  categories: Category[];
 
   constructor(
     private fb: FormBuilder,
@@ -31,12 +35,12 @@ export class TransactionNewComponent implements OnInit {
     private transactionService: TransactionService,
     private alertService: AlertService,
     private accountService: AccountService,
-    private statusService: StatusService
+    private statusService: StatusService,
+    private categoryService: CategoryService
   ) { }
 
   ngOnInit() {
-    this.getAccounts();
-    this.getStatus();
+    this.fillDropdown();
     this.createForm();
   }
 
@@ -45,7 +49,7 @@ export class TransactionNewComponent implements OnInit {
     this.transactionService.addTransaction(transaction)
       .subscribe(t => {
         this.alertService.success('Transaction has been created with success', true),
-        this.router.navigate(['/transactions']);
+          this.router.navigate(['/transactions']);
       });
   }
 
@@ -64,11 +68,16 @@ export class TransactionNewComponent implements OnInit {
       note: '',
       amount: ['0.00', Validators.required],
       account_id: ['', Validators.required],
-      status_id: ['', Validators.required]
+      status_id: ['', Validators.required],
+      category_id: ['', Validators.required]
     });
     this.form.controls['account_id'].setValue('', { onlySelf: true });
   }
-
+  private fillDropdown(): void {
+    this.getAccounts();
+    this.getStatus();
+    this.getCategories();
+  }
   private getAccounts(): void {
     this.accountService.getAccounts()
       .subscribe(list => this.accounts = this.accountService.getActiveAccounts(list));
@@ -77,6 +86,11 @@ export class TransactionNewComponent implements OnInit {
   private getStatus(): void {
     this.statusService.getStatuses()
       .subscribe(list => this.status = this.statusService.getActiveStatus(list));
+  }
+
+  private getCategories(): void {
+    this.categoryService.getCategories()
+      .subscribe(list => this.categories = this.categoryService.getActiveCategories(list));
   }
 
   private prepareSave(): Transaction {
@@ -88,7 +102,8 @@ export class TransactionNewComponent implements OnInit {
       note: formModel.note as string,
       amount: formModel.amount as number,
       account_id: formModel.account_id as number,
-      status_id: formModel.status_id as number
+      status_id: formModel.status_id as number,
+      category_id: formModel.status_id as number
     };
     return save;
   }
@@ -99,4 +114,3 @@ export class TransactionNewComponent implements OnInit {
   }
 
 }
-//todo: test insert new transaction with status

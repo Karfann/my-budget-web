@@ -7,6 +7,7 @@ export class Transaction {
         public amount: number,
         public account_id: number,
         public status_id: number,
+        public category_id: number,
         public created_at?: Date,
         public updated_at?: Date
     ) { }
