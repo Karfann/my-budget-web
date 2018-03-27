@@ -17,6 +17,10 @@ import { StatusNewComponent } from './status-new/status-new.component';
     NgbModule,
     StatusRoutingModule
   ],
-  declarations: [StatusMainComponent, StatusListComponent, StatusEditComponent, StatusNewComponent]
+  declarations: [
+    StatusMainComponent,
+    StatusListComponent,
+    StatusEditComponent,
+    StatusNewComponent]
 })
 export class StatusModule { }
