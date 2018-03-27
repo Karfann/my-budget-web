@@ -68,7 +68,7 @@ export class StatusService {
   }
 
   getActiveStatus(status: Status[]): Status[] {
-    return status.filter(item => item.isActive === true);
+    return status.filter(item => item.isActive);
   }
 
   /**

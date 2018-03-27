@@ -70,7 +70,7 @@ export class AccountService {
   // }
 
   getActiveAccounts(accounts: Account[]): Account[] {
-    return accounts.filter(item => item.isActive === true);
+    return accounts.filter(item => item.isActive );
   }
 
   /**

@@ -43,19 +43,19 @@ export class CategoryService {
 
   addCategory(category: Category): Observable<Category> {
     return this.http.post<Category>(this.categoryUrl, category, httpOptions)
-    .pipe(
-      tap((newCategory: Category) => this.logService.log(`added category id=${newCategory.id}`)),
-      catchError(this.handleError<any>('Added category'))
-    );
+      .pipe(
+        tap((newCategory: Category) => this.logService.log(`added category id=${newCategory.id}`)),
+        catchError(this.handleError<any>('Added category'))
+      );
   }
 
   updateCategory(category: Category): Observable<any> {
     const url = `${this.categoryUrl}/${category.id}`;
     return this.http.put(url, category, httpOptions)
-    .pipe(
-      tap(_ => this.logService.log(`updated category id=${category.id}`)),
-      catchError(this.handleError<any>('Updated category'))
-    );
+      .pipe(
+        tap(_ => this.logService.log(`updated category id=${category.id}`)),
+        catchError(this.handleError<any>('Updated category'))
+      );
   }
 
   deleteCategory(category: Category): Observable<Category> {
@@ -65,6 +65,10 @@ export class CategoryService {
         tap(_ => this.logService.log(`deleted category id=${category.id}`)),
         catchError(this.handleError<any>('Deleted Category'))
       );
+  }
+
+  getActiveCategories(categories: Category[]): Category[] {
+    return categories.filter(item => item.isActive);
   }
 
   /**
