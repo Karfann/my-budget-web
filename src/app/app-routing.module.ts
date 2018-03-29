@@ -20,6 +20,10 @@ const appRoutes: Routes = [
     path: 'categories',
     loadChildren: 'app/categories/categories.module#CategoriesModule'
   },
+  {
+    path: 'types',
+    loadChildren: 'app/types/types.module#TypesModule'
+  },
   { path: '', redirectTo: '/transactions', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent }
 ];

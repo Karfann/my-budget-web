@@ -21,6 +21,7 @@ import { LogService } from './shared/services/log.service';
 import { TransactionService } from './transactions/shared/transaction.service';
 import { StatusService } from './status/shared/status.service';
 import { CategoryService } from './categories/shared/category.service';
+import { TypeService } from './types/shared/type.service';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { CategoryService } from './categories/shared/category.service';
     LogService,
     TransactionService,
     StatusService,
-    CategoryService],
+    CategoryService,
+    TypeService],
   entryComponents: [ModalComponent],
   bootstrap: [AppComponent]
 })
