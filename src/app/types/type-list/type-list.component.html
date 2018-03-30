@@ -1,3 +1,9 @@
-<p>
-  type-list works!
-</p>
+<ul class="list-group">
+  <a 
+    *ngFor="let type of types"
+    [routerLink]="['detail',type.id]" 
+    class="list-group-item d-flex justify-content-between align-items-center">
+    {{ type.name }}
+    <span class="badge badge-primary badge-pill">{{ type.isActive }}</span>
+  </a>
+</ul>
