@@ -1,4 +1,4 @@
-<ul class="list-group">
+<!-- <ul class="list-group">
   <a 
     *ngFor="let type of types"
     [routerLink]="['detail',type.id]" 
@@ -6,4 +6,24 @@
     {{ type.name }}
     <span class="badge badge-primary badge-pill">{{ type.isActive }}</span>
   </a>
-</ul>
+</ul> -->
+
+<ngb-accordion [closeOthers]="true">
+  <ngb-panel *ngFor="let type of types" id="{{ type.id }}" title="{{ type.name }}">
+    <ng-template ngbPanelContent>
+      <div class="card w-100">
+        <div class="card-body">
+          <p class="card-text">Value: {{ type.value }}</p>
+          <p class="card-text">Created: {{ type.created_at | date }}</p>
+          <p class="card-text">Last Update: {{ type.updated_at | date }}</p>
+          <p>
+            <span class="badge badge-primary badge-pill">{{ type.isActive }}</span>
+          </p>
+          <div class="ml-auto col-1">
+            <a class="btn btn-dark btn-sm" [routerLink]="['detail',type.id]">Edit</a>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </ngb-panel>
+</ngb-accordion>
