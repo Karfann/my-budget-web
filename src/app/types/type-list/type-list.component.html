@@ -1,13 +1,3 @@
-<!-- <ul class="list-group">
-  <a 
-    *ngFor="let type of types"
-    [routerLink]="['detail',type.id]" 
-    class="list-group-item d-flex justify-content-between align-items-center">
-    {{ type.name }}
-    <span class="badge badge-primary badge-pill">{{ type.isActive }}</span>
-  </a>
-</ul> -->
-
 <ngb-accordion [closeOthers]="true">
   <ngb-panel *ngFor="let type of types" id="{{ type.id }}" title="{{ type.name }}">
     <ng-template ngbPanelContent>
@@ -16,8 +6,8 @@
           <p class="card-text">Value: {{ type.value }}</p>
           <p class="card-text">Created: {{ type.created_at | date }}</p>
           <p class="card-text">Last Update: {{ type.updated_at | date }}</p>
-          <p>
-            <span class="badge badge-primary badge-pill">{{ type.isActive }}</span>
+          <p class="card-text">
+            Active: <span class="badge badge-primary badge-pill">{{ type.isActive }}</span>
           </p>
           <div class="ml-auto col-1">
             <a class="btn btn-dark btn-sm" [routerLink]="['detail',type.id]">Edit</a>
