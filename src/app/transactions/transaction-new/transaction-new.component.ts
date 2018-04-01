@@ -17,6 +17,9 @@ import { Status } from '../../status/shared/status';
 import { CategoryService } from '../../categories/shared/category.service';
 import { Category } from '../../categories/shared/category';
 
+import { TypeService } from '../../types/shared/type.service';
+import { Type } from '../../types/shared/type';
+
 @Component({
   selector: 'app-transaction-new',
   templateUrl: './transaction-new.component.html',
@@ -27,6 +30,7 @@ export class TransactionNewComponent implements OnInit {
   accounts: Account[];
   status: Status[];
   categories: Category[];
+  types: Type[];
 
   constructor(
     private fb: FormBuilder,
@@ -36,7 +40,8 @@ export class TransactionNewComponent implements OnInit {
     private alertService: AlertService,
     private accountService: AccountService,
     private statusService: StatusService,
-    private categoryService: CategoryService
+    private categoryService: CategoryService,
+    private typeService: TypeService
   ) { }
 
   ngOnInit() {
@@ -69,14 +74,16 @@ export class TransactionNewComponent implements OnInit {
       amount: ['0.00', Validators.required],
       account_id: ['', Validators.required],
       status_id: ['', Validators.required],
-      category_id: ['', Validators.required]
+      category_id: ['', Validators.required],
+      type_id: ['', Validators.required]
     });
-    this.form.controls['account_id'].setValue('', { onlySelf: true });
   }
+
   private fillDropdown(): void {
     this.getAccounts();
     this.getStatus();
     this.getCategories();
+    this.getTypes();
   }
   private getAccounts(): void {
     this.accountService.getAccounts()
@@ -93,6 +100,11 @@ export class TransactionNewComponent implements OnInit {
       .subscribe(list => this.categories = this.categoryService.getActiveCategories(list));
   }
 
+  private getTypes(): void {
+    this.typeService.getTypes()
+      .subscribe(list => this.types = this.typeService.getActiveTypes(list));
+  }
+
   private prepareSave(): Transaction {
     const formModel = this.form.value;
     const save: Transaction = {
@@ -103,7 +115,8 @@ export class TransactionNewComponent implements OnInit {
       amount: formModel.amount as number,
       account_id: formModel.account_id as number,
       status_id: formModel.status_id as number,
-      category_id: formModel.status_id as number
+      category_id: formModel.status_id as number,
+      type_id: formModel.type_id as number
     };
     return save;
   }

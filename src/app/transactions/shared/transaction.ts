@@ -8,6 +8,7 @@ export class Transaction {
         public account_id: number,
         public status_id: number,
         public category_id: number,
+        public type_id: number,
         public created_at?: Date,
         public updated_at?: Date
     ) { }

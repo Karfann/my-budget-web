@@ -18,6 +18,9 @@ import { CategoryService } from '../../categories/shared/category.service';
 import { ModalComponent } from '../../shared/modal/modal.component';
 import { AlertService } from '../../shared/services/alert.service';
 
+import { Type } from '../../types/shared/type';
+import { TypeService } from '../../types/shared/type.service';
+
 @Component({
   selector: 'app-transaction-edit',
   templateUrl: './transaction-edit.component.html',
@@ -29,6 +32,7 @@ export class TransactionEditComponent implements OnInit {
   accounts: Account[];
   status: Status[];
   categories: Category[];
+  types: Type[];
   transaction: Transaction;
 
   constructor(
@@ -40,6 +44,7 @@ export class TransactionEditComponent implements OnInit {
     private transactionService: TransactionService,
     private statusService: StatusService,
     private categoryService: CategoryService,
+    private typeService: TypeService,
     private modalService: NgbModal
   ) { }
 
@@ -95,10 +100,18 @@ export class TransactionEditComponent implements OnInit {
 
   private getCategories(): void {
     this.categoryService.getCategories()
-    .subscribe(list => {
-      this.categories = this.categoryService.getActiveCategories(list),
-      this.getTransaction();
-    });
+      .subscribe(list => {
+        this.categories = this.categoryService.getActiveCategories(list),
+          this.getTypes();
+      });
+  }
+
+  private getTypes(): void {
+    this.typeService.getTypes()
+      .subscribe(list => {
+        this.types = this.typeService.getActiveTypes(list),
+          this.getTransaction();
+      });
   }
 
   private getTransaction(): void {
@@ -124,7 +137,8 @@ export class TransactionEditComponent implements OnInit {
       amount: this.transaction.amount,
       account_id: this.transaction.account_id,
       status_id: this.transaction.status_id,
-      category_id: this.transaction.category_id
+      category_id: this.transaction.category_id,
+      type_id: this.transaction.type_id
     });
   }
 
@@ -136,7 +150,8 @@ export class TransactionEditComponent implements OnInit {
       amount: ['0.00', Validators.required],
       account_id: ['', Validators.required],
       status_id: ['', Validators.required],
-      category_id: ['', Validators.required]
+      category_id: ['', Validators.required],
+      type_id: ['', Validators.required]
     });
   }
 
@@ -160,7 +175,8 @@ export class TransactionEditComponent implements OnInit {
       amount: formModel.amount as number,
       account_id: formModel.account_id as number,
       status_id: formModel.status_id as number,
-      category_id: formModel.category_id as number
+      category_id: formModel.category_id as number,
+      type_id: formModel.type_id as number
     };
     return save;
   }
