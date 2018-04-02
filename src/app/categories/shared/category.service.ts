@@ -67,8 +67,13 @@ export class CategoryService {
       );
   }
 
-  getActiveCategories(categories: Category[]): Category[] {
-    return categories.filter(item => item.isActive);
+  getActiveCategories(): Observable<Category[]> {
+    const url = `${this.categoryUrl}/active`;
+    return this.http.get<Category[]>(url)
+      .pipe(
+        tap(list => this.logService.log(`fetched ${list.length} categories`)),
+        catchError(this.handleError('List Active Status', []))
+      );
   }
 
   /**

@@ -69,8 +69,13 @@ export class AccountService {
   //     );
   // }
 
-  getActiveAccounts(accounts: Account[]): Account[] {
-    return accounts.filter(item => item.isActive );
+  getActiveAccounts(): Observable<Account[]> {
+    const url = `${this.accountUrl}/active`;
+    return this.http.get<Account[]>(url)
+      .pipe(
+        tap(list => this.logService.log(`fetched ${list.length} accounts`)),
+        catchError(this.handleError('List Active Accounts', []))
+      );
   }
 
   /**

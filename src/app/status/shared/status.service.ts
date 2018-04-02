@@ -67,8 +67,13 @@ export class StatusService {
       );
   }
 
-  getActiveStatus(status: Status[]): Status[] {
-    return status.filter(item => item.isActive);
+  getActiveStatuses(): Observable<Status[]> {
+    const url = `${this.statusUrl}/active`;
+    return this.http.get<Status[]>(url)
+      .pipe(
+        tap(list => this.logService.log(`fetched ${list.length} status`)),
+        catchError(this.handleError('List Acive Status', []))
+      );
   }
 
   /**

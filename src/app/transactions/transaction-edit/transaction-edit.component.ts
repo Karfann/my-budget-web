@@ -81,19 +81,19 @@ export class TransactionEditComponent implements OnInit {
   }
 
   private getAccounts(): void {
-    this.accountService.getAccounts()
+    this.accountService.getActiveAccounts()
       .subscribe(
         list => {
-          this.accounts = this.accountService.getActiveAccounts(list),
+          this.accounts = list,
             this.getStatus();
         }
       );
   }
 
   private getStatus(): void {
-    this.statusService.getStatuses()
+    this.statusService.getActiveStatuses()
       .subscribe(list => {
-        this.status = this.statusService.getActiveStatus(list),
+        this.status = list,
           this.getCategories();
       });
   }
@@ -101,15 +101,15 @@ export class TransactionEditComponent implements OnInit {
   private getCategories(): void {
     this.categoryService.getCategories()
       .subscribe(list => {
-        this.categories = this.categoryService.getActiveCategories(list),
+        this.categories = list,
           this.getTypes();
       });
   }
 
   private getTypes(): void {
-    this.typeService.getTypes()
+    this.typeService.getActiveTypes()
       .subscribe(list => {
-        this.types = this.typeService.getActiveTypes(list),
+        this.types = list,
           this.getTransaction();
       });
   }

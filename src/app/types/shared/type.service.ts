@@ -68,10 +68,14 @@ export class TypeService {
       );
   }
 
-  getActiveTypes(types: Type[]): Type[] {
-    return types.filter(item => item.isActive);
+  getActiveTypes(): Observable<Type[]> {
+    const url = `${this.typeUrl}/active`;
+    return this.http.get<Type[]>(url)
+      .pipe(
+        tap(list => this.logService.log(`fetched ${list.length} types`)),
+        catchError(this.handleError('List Active Status', []))
+      );
   }
-
   /**
    * Handle Http operation that failed.
    * Let the app continue.

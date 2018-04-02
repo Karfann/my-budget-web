@@ -86,23 +86,23 @@ export class TransactionNewComponent implements OnInit {
     this.getTypes();
   }
   private getAccounts(): void {
-    this.accountService.getAccounts()
-      .subscribe(list => this.accounts = this.accountService.getActiveAccounts(list));
+    this.accountService.getActiveAccounts()
+      .subscribe(list => this.accounts = list);
   }
 
   private getStatus(): void {
-    this.statusService.getStatuses()
-      .subscribe(list => this.status = this.statusService.getActiveStatus(list));
+    this.statusService.getActiveStatuses()
+      .subscribe(list => this.status = list);
   }
 
   private getCategories(): void {
-    this.categoryService.getCategories()
-      .subscribe(list => this.categories = this.categoryService.getActiveCategories(list));
+    this.categoryService.getActiveCategories()
+      .subscribe(list => this.categories = list);
   }
 
   private getTypes(): void {
-    this.typeService.getTypes()
-      .subscribe(list => this.types = this.typeService.getActiveTypes(list));
+    this.typeService.getActiveTypes()
+      .subscribe(list => this.types =  list);
   }
 
   private prepareSave(): Transaction {
