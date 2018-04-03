@@ -31,6 +31,7 @@ export class TransactionNewComponent implements OnInit {
   status: Status[];
   categories: Category[];
   types: Type[];
+  hideDestinyAccount = true;
 
   constructor(
     private fb: FormBuilder,
@@ -66,6 +67,20 @@ export class TransactionNewComponent implements OnInit {
     this.form.reset();
   }
 
+  checkType(type_id: number): void {
+    const aux: Type[] = this.types.filter(item => item.id === +type_id);
+    if (aux.length > 0) {
+      const type: Type = aux[0];
+      this.hideDestinyAccount = +type.value !== 0;
+    } else {
+      this.hideDestinyAccount = true;
+    }
+  }
+
+  onChange(deviceValue) {
+    console.log(deviceValue);
+  }
+
   private createForm(): void {
     this.form = this.fb.group({
       date: ['', Validators.required],
@@ -75,7 +90,8 @@ export class TransactionNewComponent implements OnInit {
       account_id: ['', Validators.required],
       status_id: ['', Validators.required],
       category_id: ['', Validators.required],
-      type_id: ['', Validators.required]
+      type_id: ['', Validators.required],
+      account_action_id: '',
     });
   }
 
@@ -102,7 +118,7 @@ export class TransactionNewComponent implements OnInit {
 
   private getTypes(): void {
     this.typeService.getActiveTypes()
-      .subscribe(list => this.types =  list);
+      .subscribe(list => this.types = list);
   }
 
   private prepareSave(): Transaction {
@@ -115,7 +131,7 @@ export class TransactionNewComponent implements OnInit {
       amount: formModel.amount as number,
       account_id: formModel.account_id as number,
       status_id: formModel.status_id as number,
-      category_id: formModel.status_id as number,
+      category_id: formModel.category_id as number,
       type_id: formModel.type_id as number
     };
     return save;
