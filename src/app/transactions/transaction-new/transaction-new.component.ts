@@ -28,8 +28,8 @@ import { Type } from '../../types/shared/type';
 export class TransactionNewComponent implements OnInit {
   form: FormGroup;
   accounts: Account[];
-  status: Status[];
   categories: Category[];
+  status: Status[];
   types: Type[];
   hideDestinyAccount = true;
 
@@ -54,8 +54,8 @@ export class TransactionNewComponent implements OnInit {
     const transaction = this.prepareSave();
     this.transactionService.addTransaction(transaction)
       .subscribe(t => {
-        this.alertService.success('Transaction has been created with success', true),
-          this.router.navigate(['/transactions']);
+        this.alertService.success('Transaction has been created with success', true);
+        this.router.navigate(['/transactions']);
       });
   }
 
@@ -77,10 +77,6 @@ export class TransactionNewComponent implements OnInit {
     }
   }
 
-  onChange(deviceValue) {
-    console.log(deviceValue);
-  }
-
   private createForm(): void {
     this.form = this.fb.group({
       date: ['', Validators.required],
@@ -89,9 +85,9 @@ export class TransactionNewComponent implements OnInit {
       amount: ['0.00', Validators.required],
       account_id: ['', Validators.required],
       status_id: ['', Validators.required],
-      category_id: ['', Validators.required],
+      category_id: '',
       type_id: ['', Validators.required],
-      account_action_id: '',
+      account_destiny_id: ''
     });
   }
 
@@ -101,6 +97,7 @@ export class TransactionNewComponent implements OnInit {
     this.getCategories();
     this.getTypes();
   }
+
   private getAccounts(): void {
     this.accountService.getActiveAccounts()
       .subscribe(list => this.accounts = list);
@@ -132,7 +129,8 @@ export class TransactionNewComponent implements OnInit {
       account_id: formModel.account_id as number,
       status_id: formModel.status_id as number,
       category_id: formModel.category_id as number,
-      type_id: formModel.type_id as number
+      type_id: formModel.type_id as number,
+      account_destiny_id: formModel.account_destiny_id as number
     };
     return save;
   }

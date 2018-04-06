@@ -47,7 +47,7 @@
       </div>
       <ng-template #transfer>
           <label for="account">Destiny Account</label>
-          <select class="form-control" formControlName="account_action_id">
+          <select class="form-control" formControlName="account_destiny_id">
             <option selected value="">Choose..</option>
             <option *ngFor="let account of accounts" [value]="account.id">{{account.name}}</option>
           </select>
