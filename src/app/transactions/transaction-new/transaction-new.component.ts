@@ -43,7 +43,7 @@ export class TransactionNewComponent implements OnInit {
     private statusService: StatusService,
     private categoryService: CategoryService,
     private typeService: TypeService
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.fillDropdown();
@@ -52,11 +52,13 @@ export class TransactionNewComponent implements OnInit {
 
   onSubmit(): void {
     const transaction = this.prepareSave();
-    this.transactionService.addTransaction(transaction)
-      .subscribe(t => {
-        this.alertService.success('Transaction has been created with success', true);
-        this.router.navigate(['/transactions']);
-      });
+    this.transactionService.addTransaction(transaction).subscribe(t => {
+      this.alertService.success(
+        'Transaction has been created with success',
+        true
+      );
+      this.router.navigate(['/transactions']);
+    });
   }
 
   goBack(): void {
@@ -99,23 +101,25 @@ export class TransactionNewComponent implements OnInit {
   }
 
   private getAccounts(): void {
-    this.accountService.getActiveAccounts()
-      .subscribe(list => this.accounts = list);
+    this.accountService
+      .getActiveAccounts()
+      .subscribe(list => (this.accounts = list));
   }
 
   private getStatus(): void {
-    this.statusService.getActiveStatuses()
-      .subscribe(list => this.status = list);
+    this.statusService
+      .getActiveStatuses()
+      .subscribe(list => (this.status = list));
   }
 
   private getCategories(): void {
-    this.categoryService.getActiveCategories()
-      .subscribe(list => this.categories = list);
+    this.categoryService
+      .getActiveCategories()
+      .subscribe(list => (this.categories = list));
   }
 
   private getTypes(): void {
-    this.typeService.getActiveTypes()
-      .subscribe(list => this.types = list);
+    this.typeService.getActiveTypes().subscribe(list => (this.types = list));
   }
 
   private prepareSave(): Transaction {
@@ -132,6 +136,13 @@ export class TransactionNewComponent implements OnInit {
       type_id: formModel.type_id as number,
       account_destiny_id: formModel.account_destiny_id as number
     };
+
+    if (this.hideDestinyAccount) {
+      save.account_destiny_id = 0;
+    } else {
+      save.category_id = null;
+    }
+
     return save;
   }
 
@@ -139,5 +150,4 @@ export class TransactionNewComponent implements OnInit {
     const temp = `${data['year']}/${data['month']}/${data['day']}`;
     return new Date(temp);
   }
-
 }
