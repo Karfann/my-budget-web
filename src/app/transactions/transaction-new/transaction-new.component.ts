@@ -28,6 +28,7 @@ import { Type } from '../../types/shared/type';
 export class TransactionNewComponent implements OnInit {
   form: FormGroup;
   accounts: Account[];
+  destinyAccounts: Account[];
   categories: Category[];
   status: Status[];
   types: Type[];
@@ -79,6 +80,12 @@ export class TransactionNewComponent implements OnInit {
     }
   }
 
+  fillDestinyAccounts(): void {
+    this.destinyAccounts = this.accounts.filter(
+      item => item.id !== +this.form.value.account_id
+    );
+  }
+
   private createForm(): void {
     this.form = this.fb.group({
       date: ['', Validators.required],
@@ -103,7 +110,10 @@ export class TransactionNewComponent implements OnInit {
   private getAccounts(): void {
     this.accountService
       .getActiveAccounts()
-      .subscribe(list => (this.accounts = list));
+      .subscribe(list => {
+        this.accounts = list;
+        this.destinyAccounts = list;
+      });
   }
 
   private getStatus(): void {

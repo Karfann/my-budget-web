@@ -23,7 +23,7 @@
   <div class="row">
     <div class="form-group col-6">
       <label for="account">Account</label>
-      <select class="form-control" formControlName="account_id">
+      <select class="form-control" formControlName="account_id" (change)="fillDestinyAccounts()">
         <option selected value="">Choose..</option>
         <option *ngFor="let account of accounts" [value]="account.id">{{account.name}}</option>
       </select>
@@ -49,7 +49,7 @@
           <label for="account">Destiny Account</label>
           <select class="form-control" formControlName="account_destiny_id">
             <option selected value="">Choose..</option>
-            <option *ngFor="let account of accounts" [value]="account.id">{{account.name}}</option>
+            <option *ngFor="let account of destinyAccounts" [value]="account.id">{{account.name}}</option>
           </select>
       </ng-template>
     </div>
