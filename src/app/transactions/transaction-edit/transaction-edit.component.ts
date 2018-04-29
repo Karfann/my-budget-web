@@ -34,6 +34,7 @@ export class TransactionEditComponent implements OnInit {
   categories: Category[];
   types: Type[];
   transaction: Transaction;
+  hideDestinyAccount = true;
 
   constructor(
     private fb: FormBuilder,
@@ -152,7 +153,7 @@ export class TransactionEditComponent implements OnInit {
       status_id: ['', Validators.required],
       category_id: '',
       type_id: ['', Validators.required],
-      account_destiny_id: ''
+      // account_destiny_id: ''
     });
   }
 
@@ -178,7 +179,7 @@ export class TransactionEditComponent implements OnInit {
       status_id: formModel.status_id as number,
       category_id: formModel.category_id as number,
       type_id: formModel.type_id as number,
-      account_destiny_id: formModel.account_destiny_id as number
+      // account_destiny_id: formModel.account_destiny_id as number
     };
     return save;
   }

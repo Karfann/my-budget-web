@@ -23,11 +23,20 @@
     </div>
     <div class="row">
       <div class="form-group col-6">
-        <label for="account">Category</label>
-        <select class="form-control" formControlName="category_id">
-          <option selected value="">Choose..</option>
-          <option *ngFor="let category of categories" [value]="category.id">{{category.name}}</option>
-        </select>
+        <div *ngIf="hideDestinyAccount; else transfer">
+          <label for="account">Category</label>
+          <select class="form-control" formControlName="category_id">
+            <option selected value="">Choose..</option>
+            <option *ngFor="let category of categories" [value]="category.id">{{category.name}}</option>
+          </select>
+        </div>
+        <ng-template #transfer>
+          <label for="account">Destiny Account</label>
+          <!-- <select class="form-control" formControlName="account_destiny_id">
+            <option selected value="">Choose..</option>
+            <option *ngFor="let account of destinyAccounts" [value]="account.id">{{account.name}}</option>
+          </select> -->
+        </ng-template>
       </div>
       <div class="form-group col-6">
         <label for="account">Account</label>
